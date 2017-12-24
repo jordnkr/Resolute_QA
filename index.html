@@ -13,7 +13,41 @@
   </head>
   <body>
       <div class="container">
-          <h1>Hello, world!</h1>
+          <div class="row">
+              <div class="col-md-8 text-center">
+                  <h1 class="mt-4">Overall Result Summary</h1>
+                  <table class="table">
+                      <tr>
+                          <th>Test 1</th>
+                          <th>Test 2</th>
+                          <th>Test 3</th>
+                      </tr>
+                      <tr>
+                          <td>Test content 1</td>
+                          <td>Test content 2</td>
+                          <td>Test content 3</td>
+                      </tr>
+                  </table>
+              </div>
+              <div class="col-md-4">
+                  <canvas id="overallSummaryChart" width="200" height="200"></canvas>
+              </div>
+          </div>
+          <div class="text-center mt-5">
+              <h3>Suite Result Summaries</h3>
+              <table class="table">
+                  <tr>
+                      <th>Test 1</th>
+                      <th>Test 2</th>
+                      <th>Test 3</th>
+                  </tr>
+                  <tr>
+                      <td>Test content 1</td>
+                      <td>Test content 2</td>
+                      <td>Test content 3</td>
+                  </tr>
+              </table>
+          </div>
       </div>
 
       <!-- Optional JavaScript -->
@@ -24,6 +58,7 @@
       <script defer src="js/jquery-3.2.1.min.js"></script>
       <script defer src="js/popper.min.js"></script>
       <script defer src="js/bootstrap.min.js"></script>
+      <script defer src="js/Chart.min.js"></script>
       <script defer src="js/mainJs.js"></script>
   </body>
 </html>
