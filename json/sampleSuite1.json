@@ -1,0 +1,21 @@
+{
+    "resultId":1,
+    "suiteName":"Sample Suite 1",
+    "runDate": "December 23, 2017",
+    "executionMinutes":7.21,
+    "summaryResults": {
+        "passedTests": 5,
+        "failedTests":2,
+        "resultPercentage":71.43
+    },
+    "detailedResults": [
+        {
+            "testName":"loginTest",
+            "className":"AuthTests",
+            "filePath":"com.qa.automation",
+            "result":"Passed",
+            "executionSeconds":30,
+            "testCategories":"Bug 123"
+        }
+    ]
+}
