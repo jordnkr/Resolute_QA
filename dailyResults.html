@@ -9,7 +9,6 @@
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-      <link rel="stylesheet" href="css/datatables.min.css">
       <link rel="stylesheet" href="css/custom.css">
   </head>
   <body>
@@ -28,55 +27,29 @@
                           Daily Results
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
-                          <a class="dropdown-item" href="dailyResults.html">Suite1</a>
-                          <a class="dropdown-item" href="dailyResults.html">Suite2</a>
-                          <a class="dropdown-item" href="dailyResults.html">Suite3</a>
+                          <a class="dropdown-item" href="#">Suite1</a>
+                          <a class="dropdown-item" href="#">Suite2</a>
+                          <a class="dropdown-item" href="#">Suite3</a>
                       </div>
                   </li>
               </ul>
           </div>
       </nav>
       <div class="container">
-          <div class="row">
-              <div class="col-md-8 text-center">
-                  <h2 class="mt-4">Overall Result Summary</h2>
-                  <table class="table">
-                      <tr>
-                          <th>Total Tests</th>
-                          <th>Passed</th>
-                          <th>Failed</th>
-                          <th>Result %</th>
-                      </tr>
-                      <tr>
-                          <td>85</td>
-                          <td>70</td>
-                          <td>15</td>
-                          <td><span id="totalPercentDouble">82.35</span>%</td>
-                      </tr>
-                  </table>
-              </div>
-              <div class="col-md-4">
-                  <canvas id="overallSummaryChart" width="200" height="200"></canvas>
-              </div>
-          </div>
           <div class="text-center mt-5">
-              <h3>Suite Result Summaries</h3>
-              <table id="suiteSummaryTable" class="table">
+              <h2>Daily Results</h2>
+              <table class="table">
                   <tr>
-                      <th>Suite Name</th>
-                      <th>Total Tests</th>
-                      <th>Passed</th>
-                      <th>Failed</th>
-                      <th>Ignored</th>
-                      <th>Result %</th>
+                      <th>Test Name</th>
+                      <th>Class</th>
+                      <th>Time (seconds)</th>
+                      <th>Result</th>
                   </tr>
                   <tr>
-                      <td>Suite1</td>
-                      <td>85</td>
-                      <td>70</td>
-                      <td>15</td>
-                      <td>0</td>
-                      <td>82.35%</td>
+                      <td>ExampleTest</td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td>Passed</td>
                   </tr>
               </table>
           </div>
@@ -90,7 +63,6 @@
       <script defer src="js/libraries/jquery-3.2.1.min.js"></script>
       <script defer src="js/libraries/popper.min.js"></script>
       <script defer src="js/libraries/bootstrap.min.js"></script>
-      <script defer src="js/libraries/datatables.min.js"></script>
       <script defer src="js/libraries/Chart.min.js"></script>
       <script defer src="js/summary.js"></script>
   </body>
