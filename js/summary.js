@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
         data: {
             datasets: [{
                 data: [21, 79],
-                backgroundColor: ['red', 'green']
+                backgroundColor: ['#e23636', '#25c452']
             }],
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -18,6 +18,7 @@ jQuery(document).ready(function($) {
             maintainAspectRatio: false
         }
     });
-    $('#suiteSummaryTable').DataTable();
-
+    $('#suiteSummaryTable').DataTable( {
+        paging: false
+    });
 });

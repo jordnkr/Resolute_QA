@@ -37,8 +37,8 @@
           </div>
       </nav>
       <div class="container">
-          <div class="row">
-              <div class="col-md-8 text-center">
+          <div class="row mt-5">
+              <div class="col-md-6 text-center">
                   <h2 class="mt-4">Overall Result Summary</h2>
                   <table class="table">
                       <tr>
@@ -55,29 +55,33 @@
                       </tr>
                   </table>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                   <canvas id="overallSummaryChart" width="200" height="200"></canvas>
               </div>
           </div>
           <div class="text-center mt-5">
               <h3>Suite Result Summaries</h3>
               <table id="suiteSummaryTable" class="table">
-                  <tr>
-                      <th>Suite Name</th>
-                      <th>Total Tests</th>
-                      <th>Passed</th>
-                      <th>Failed</th>
-                      <th>Ignored</th>
-                      <th>Result %</th>
-                  </tr>
-                  <tr>
-                      <td>Suite1</td>
-                      <td>85</td>
-                      <td>70</td>
-                      <td>15</td>
-                      <td>0</td>
-                      <td>82.35%</td>
-                  </tr>
+                  <thead>
+                      <tr>
+                          <th>Suite Name</th>
+                          <th>Total Tests</th>
+                          <th>Passed</th>
+                          <th>Failed</th>
+                          <th>Ignored</th>
+                          <th>Result %</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="summaryRow">
+                          <td>Suite1</td>
+                          <td>85</td>
+                          <td>70</td>
+                          <td>15</td>
+                          <td>0</td>
+                          <td>82.35%</td>
+                      </tr>
+                  </tbody>
               </table>
           </div>
       </div>

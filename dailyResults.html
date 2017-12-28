@@ -9,6 +9,7 @@
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+      <link rel="stylesheet" href="css/datatables.min.css">
       <link rel="stylesheet" href="css/custom.css">
   </head>
   <body>
@@ -38,19 +39,30 @@
       <div class="container">
           <div class="text-center mt-5">
               <h2>Daily Results</h2>
-              <table class="table">
-                  <tr>
-                      <th>Test Name</th>
-                      <th>Class</th>
-                      <th>Time (seconds)</th>
-                      <th>Result</th>
-                  </tr>
-                  <tr>
-                      <td>ExampleTest</td>
-                      <td>ThisIsMyClass</td>
-                      <td>53</td>
-                      <td>Passed</td>
-                  </tr>
+              <select class="mt-2">
+                  <option selected>12/23/17 8:34 pm</option>
+                  <option>12/22/17 8:31 pm</option>
+                  <option>12/21/17 9:23 pm</option>
+                  <option>12/19/17 6:53 pm</option>
+                  <option>12/17/17 8:21 pm</option>
+              </select>
+              <table id="resultsTable" class="table">
+                  <thead>
+                      <tr>
+                          <th>Test Name</th>
+                          <th>Class</th>
+                          <th>Time (seconds)</th>
+                          <th>Result</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>ExampleTest</td>
+                          <td>ThisIsMyClass</td>
+                          <td>53</td>
+                          <td>Passed</td>
+                      </tr>
+                  </tbody>
               </table>
           </div>
       </div>
@@ -63,7 +75,8 @@
       <script defer src="js/libraries/jquery-3.2.1.min.js"></script>
       <script defer src="js/libraries/popper.min.js"></script>
       <script defer src="js/libraries/bootstrap.min.js"></script>
+      <script defer src="js/libraries/datatables.min.js"></script>
       <script defer src="js/libraries/Chart.min.js"></script>
-      <script defer src="js/summary.js"></script>
+      <script defer src="js/dailyResults.js"></script>
   </body>
 </html>

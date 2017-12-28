@@ -1,0 +1,15 @@
+.passGreen {
+    background-color: #25c452;
+}
+
+.failRed {
+    background-color: #e23636;
+}
+
+.yellow {
+    background-color: #efe74c;
+}
+
+.orange {
+    background-color: #f2a44b;
+}
