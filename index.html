@@ -37,7 +37,8 @@
           </div>
       </nav>
       <div class="container">
-          <div class="row mt-5">
+              <h1 class="text-center mt-5 mb-5">Company Testing</h1>
+          <div class="row">
               <div class="col-md-6 text-center">
                   <h2 class="mt-4">Overall Result Summary</h2>
                   <table class="table">
@@ -61,11 +62,11 @@
           </div>
           <div class="text-center mt-5">
               <h3>Suite Result Summaries</h3>
-              <table id="suiteSummaryTable" class="table">
+              <table id="suiteSummaryTable" class="table no-border">
                   <thead>
                       <tr>
                           <th>Suite Name</th>
-                          <th>Total Tests</th>
+                          <th>Total Tests</sth>
                           <th>Passed</th>
                           <th>Failed</th>
                           <th>Ignored</th>
@@ -73,13 +74,37 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr class="summaryRow">
+                      <tr class="summaryRow" data-percentage="100">
+                          <td>Suite1</td>
+                          <td>70</td>
+                          <td>70</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>100%</td>
+                      </tr>
+                      <tr class="summaryRow" data-percentage="82.35">
                           <td>Suite1</td>
                           <td>85</td>
                           <td>70</td>
                           <td>15</td>
                           <td>0</td>
                           <td>82.35%</td>
+                      </tr>
+                      <tr class="summaryRow" data-percentage="69.00">
+                          <td>Suite1</td>
+                          <td>100</td>
+                          <td>69</td>
+                          <td>31</td>
+                          <td>0</td>
+                          <td>69.00%</td>
+                      </tr>
+                      <tr class="summaryRow" data-percentage="59.00">
+                          <td>Suite1</td>
+                          <td>100</td>
+                          <td>59</td>
+                          <td>41</td>
+                          <td>0</td>
+                          <td>69.00%</td>
                       </tr>
                   </tbody>
               </table>

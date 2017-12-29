@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
         data: {
             datasets: [{
                 data: [21, 79],
-                backgroundColor: ['#e23636', '#25c452']
+                backgroundColor: ['#ea8383', '#83ea94']
             }],
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -20,5 +20,18 @@ jQuery(document).ready(function($) {
     });
     $('#suiteSummaryTable').DataTable( {
         paging: false
+    });
+
+    $('.summaryRow').each(function() {
+        var percent = $(this).attr('data-percentage');
+        if (percent == 100) {
+            $(this).addClass('green');
+        } else if (percent >= 80) {
+            $(this).addClass('yellow');
+        } else if (percent >= 60) {
+            $(this).addClass('orange');
+        } else {
+            $(this).addClass('red');
+        }
     });
 });

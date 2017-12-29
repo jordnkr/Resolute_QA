@@ -1,15 +1,23 @@
-.passGreen {
-    background-color: #25c452;
+.no-border {
+  border-spacing: 0;
 }
 
-.failRed {
-    background-color: #e23636;
+.green {
+    background-color: #83ea94;
+}
+
+.red {
+    background-color: #ea8383;
 }
 
 .yellow {
-    background-color: #efe74c;
+    background-color: #eae883;
 }
 
 .orange {
-    background-color: #f2a44b;
+    background-color: #eab483;
+}
+
+.grayBorder td {
+    border: solid 1px #dddddd;
 }
