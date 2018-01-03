@@ -20,81 +20,94 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="index.html">Summary <span class="sr-only">(current)</span></a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="index.html">Summary</a>
                   </li>
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown active">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Daily Results
+                          Daily Results <span class="sr-only">(current)</span>
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
                           <a class="dropdown-item" href="#">Suite1</a>
                           <a class="dropdown-item" href="#">Suite2</a>
                           <a class="dropdown-item" href="#">Suite3</a>
+                          <a class="dropdown-item" href="#">Suite4</a>
                       </div>
                   </li>
               </ul>
           </div>
       </nav>
-      <div class="container">
-          <div class="text-center mt-5">
-              <h2>Daily Results for MyDemoSuite</h2>
-              <select class="mt-3">
+      <div class="container mt-5">
+          <h2 class="text-center">Daily Results for MyDemoSuite</h2>
+          <div class="row justify-content-md-center mt-3 mb-3">
+              <select class="form-control col-md-3 text-center">
                   <option selected>12/23/17 8:34 pm</option>
                   <option>12/22/17 8:31 pm</option>
                   <option>12/21/17 9:23 pm</option>
                   <option>12/19/17 6:53 pm</option>
                   <option>12/17/17 8:21 pm</option>
               </select>
-              <table id="resultsTable" class="table no-border grayBorder">
-                  <thead>
-                      <tr>
-                          <th>Test Name</th>
-                          <th>Class</th>
-                          <th>Time (seconds)</th>
-                          <th>Result</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>ExampleTest3</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="green">Passed</td>
-                      </tr>
-                      <tr>
-                          <td>ExampleTest2</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="green">Passed</td>
-                      </tr>
-                      <tr>
-                          <td>ExampleTest1</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="red">Failed</td>
-                      </tr>
-                      <tr>
-                          <td>ExampleTest5</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="red">Failed</td>
-                      </tr>
-                      <tr>
-                          <td>ExampleTest4</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="red">Failed</td>
-                      </tr>
-                      <tr>
-                          <td>ExampleTest6</td>
-                          <td>ThisIsMyClass</td>
-                          <td>53</td>
-                          <td class="green">Passed</td>
-                      </tr>
-                  </tbody>
-              </table>
           </div>
+          <table id="resultsTable" class="table no-border grayBorder text-center">
+              <thead>
+                  <tr>
+                      <th>Test Name</th>
+                      <th>Class</th>
+                      <th>Time (seconds)</th>
+                      <th>Result</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest3</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="green link" data-result="Passed">Passed</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest2</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="green link" data-result="Passed">Passed</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest1</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="red link" data-result="Failed">Failed</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest5</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="red link" data-result="Failed">Failed</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest4</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="red link" data-result="Failed">Failed</td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <span class="link">ExampleTest6</span>
+                      </td>
+                      <td>ThisIsMyClass</td>
+                      <td>53</td>
+                      <td class="green link" data-result="Passed">Passed</td>
+                  </tr>
+              </tbody>
+          </table>
       </div>
 
       <!-- Optional JavaScript -->

@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [21, 79],
+                data: [24.51, 75.49],
                 backgroundColor: ['#ea8383', '#83ea94']
             }],
 

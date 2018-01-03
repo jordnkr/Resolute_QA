@@ -21,3 +21,8 @@
 .grayBorder td {
     border: solid 1px #dddddd;
 }
+
+.link {
+    cursor: pointer;
+    text-decoration: underline;
+}
