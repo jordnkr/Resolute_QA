@@ -23,9 +23,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="summary.html">Summary</a>
                   </li>
-                  <li class="nav-item dropdown active">
+                  <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Daily Results <span class="sr-only">(current)</span>
+                          Daily Results
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
                           <a class="dropdown-item" href="dailyResults.html">Suite1</a>
@@ -34,82 +34,63 @@
                           <a class="dropdown-item" href="dailyResults.html">Suite4</a>
                       </div>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="bugs.html">Bugs</a>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="bugs.html">Bugs<span class="sr-only">(current)</span></a>
                   </li>
               </ul>
           </div>
       </nav>
-      <div class="container-fluid text-center mt-5">
-          <h2>Daily Results for MyDemoSuite</h2>
-          <div class="row justify-content-center mt-3 mb-3">
-              <select class="form-control" style="width:auto;">
-                  <option selected>12/23/17 8:34 pm</option>
-                  <option>12/22/17 8:31 pm</option>
-                  <option>12/21/17 9:23 pm</option>
-                  <option>12/19/17 6:53 pm</option>
-                  <option>12/17/17 8:21 pm</option>
-              </select>
+      <div class="container-fluid mt-5">
+          <h2 class="text-center">Bugs for MyProject</h2>
+          <div class="row justify-content-md-center mt-3">
+              <button type="button" class="btn btn-secondary">Delete Source ID</button>
           </div>
-          <div class="row justify-content-md-center">
+          <div class="row justify-content-md-center mt-3">
               <div class="col-md-10">
-                  <table id="resultsTable" class="table no-border grayBorder">
+                  <table id="bugsTable" class="table no-border grayBorder text-center">
                       <thead>
                           <tr>
-                              <th>Test Name</th>
-                              <th>Class</th>
-                              <th>Time (seconds)</th>
-                              <th>Result</th>
+                              <th>Source Control ID</th>
+                              <th>Bug Title</th>
+                              <th>Description</th>
+                              <th>Source Control</th>
+                              <th>URL</th>
+                              <th></th>
                           </tr>
                       </thead>
                       <tbody>
                           <tr>
+                              <td>123456</td>
+                              <td><span class="link">Logo link broken</span></td>
+                              <td>Logo does not link to home page</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <span class="link">ExampleTest3</span>
+                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm">Delete</button>
                               </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
                           </tr>
                           <tr>
+                              <td>123123</td>
+                              <td><span class="link">Menu won't open</span></td>
+                              <td>Menu does not open as expected</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <span class="link">ExampleTest2</span>
+                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm">Delete</button>
                               </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
                           </tr>
                           <tr>
+                              <td>050505</td>
+                              <td><span class="link">Nav link broken</span></td>
+                              <td>Nav link doesn't work</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <span class="link">ExampleTest1</span>
+                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm">Delete</button>
                               </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <span class="link">ExampleTest5</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <span class="link">ExampleTest4</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <span class="link">ExampleTest6</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
                           </tr>
                       </tbody>
                   </table>
@@ -127,6 +108,6 @@
       <script defer src="js/libraries/bootstrap.min.js"></script>
       <script defer src="js/libraries/datatables.min.js"></script>
       <script defer src="js/libraries/Chart.min.js"></script>
-      <script defer src="js/dailyResults.js"></script>
+      <script defer src="js/bugs.js"></script>
   </body>
 </html>
