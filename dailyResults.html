@@ -65,54 +65,94 @@
                       <tbody>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest3</span>
+                                  <span class="link" data-testname="ExampleTest3" data-toggle="modal" data-target="#testModal">ExampleTest3</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
+                              <td class="green link" data-result="Passed" data-toggle="modal" data-target="#resultModal">Passed</td>
                           </tr>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest2</span>
+                                  <span class="link" data-testname="ExampleTest2" data-toggle="modal" data-target="#testModal">ExampleTest2</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
+                              <td class="green link" data-result="Passed" data-toggle="modal" data-target="#resultModal">Passed</td>
                           </tr>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest1</span>
+                                  <span class="link" data-testname="ExampleTest1" data-toggle="modal" data-target="#testModal">ExampleTest1</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
+                              <td class="red link" data-result="Failed" data-toggle="modal" data-target="#resultModal">Failed</td>
                           </tr>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest5</span>
+                                  <span class="link" data-testname="ExampleTest5" data-toggle="modal" data-target="#testModal">ExampleTest5</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
+                              <td class="red link" data-result="Failed" data-toggle="modal" data-target="#resultModal">Failed</td>
                           </tr>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest4</span>
+                                  <span class="link" data-testname="ExampleTest4" data-toggle="modal" data-target="#testModal">ExampleTest4</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="red link" data-result="Failed">Failed</td>
+                              <td class="red link" data-result="Failed" data-toggle="modal" data-target="#resultModal">Failed</td>
                           </tr>
                           <tr>
                               <td>
-                                  <span class="link">ExampleTest6</span>
+                                  <span class="link" data-testname="ExampleTest6" data-toggle="modal" data-target="#testModal">ExampleTest6</span>
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53</td>
-                              <td class="green link" data-result="Passed">Passed</td>
+                              <td class="green link" data-result="Passed" data-toggle="modal" data-target="#resultModal">Passed</td>
                           </tr>
                       </tbody>
                   </table>
+              </div>
+          </div>
+      </div>
+      <!-- Test Modal -->
+      <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="testModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      ...
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Result Modal -->
+      <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="resultModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      ...
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
               </div>
           </div>
       </div>
@@ -121,7 +161,7 @@
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
-      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
       <script defer src="js/libraries/jquery-3.2.1.min.js"></script>
       <script defer src="js/libraries/popper.min.js"></script>
       <script defer src="js/libraries/bootstrap.min.js"></script>
