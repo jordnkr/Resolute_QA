@@ -6,6 +6,11 @@
     background-color: #83ea94;
 }
 
+.customBadge {
+    padding: 0px 5px;
+    border-radius: 5px;
+}
+
 .red {
     background-color: #ea8383;
 }
@@ -25,6 +30,7 @@
 .link {
     cursor: pointer;
     text-decoration: underline;
+    color: inherit;
 }
 
 button {
