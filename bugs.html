@@ -63,7 +63,7 @@
                               <td>TFS</td>
                               <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123456" data-title="Logo link broken" data-description="Logo does not link to home page" data-source="TFS" data-url="https://www.google.com">Edit</button>
                                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123456">Delete</button>
                               </td>
                           </tr>
@@ -74,7 +74,7 @@
                               <td>TFS</td>
                               <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123123" data-title="Menu won't open" data-description="Menu does not open as expected" data-source="TFS" data-url="https://www.google.com">Edit</button>
                                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123123">Delete</button>
                               </td>
                           </tr>
@@ -85,12 +85,38 @@
                               <td>TFS</td>
                               <td><a href="https://www.google.com">https://www.google.com</a></td>
                               <td>
-                                  <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="050505" data-title="Nav link broken" data-description="Nav link doesn't work" data-source="TFS" data-url="https://www.google.com">Edit</button>
                                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="050505">Delete</button>
                               </td>
                           </tr>
                       </tbody>
                   </table>
+              </div>
+          </div>
+      </div>
+      <!-- Edit Bug Modal -->
+      <div class="modal fade" id="editBugModal" tabindex="-1" role="dialog" aria-labelledby="editBugModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-md-center">
+                      <h5 class="modal-title" id="editBugModalLabel">Edit Bug <span id="modalEditTitle"></span></h5>
+                  </div>
+                  <div class="modal-body">
+                      <label for="editBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="editBugSourceControlIdInput" value=""><br>
+                      <label for="editBugTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="editBugTitleInput" value=""><br>
+                      <label for="editBugDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="editBugDescriptionInput" value=""><br>
+                      <label for="editBugSourceControlInput"><b>Source Control:</b></label>
+                      <input class="form-control" type="text" id="editBugSourceControlInput" value=""><br>
+                      <label for="editBugUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="editBugUrlInput" value="">
+                  </div>
+                  <div class="modal-footer justify-content-md-center">
+                      <button id="submitEditBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
               </div>
           </div>
       </div>
@@ -107,8 +133,8 @@
                       </p>
                   </div>
                   <div class="modal-footer justify-content-md-center">
+                      <button id="confirmDeleteBtn" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
                       <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
                   </div>
               </div>
           </div>

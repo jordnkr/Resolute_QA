@@ -3,6 +3,14 @@ jQuery(document).ready(function($) {
         paging: false
     });
 
+    $('.green').on('click', function() {
+        $('#modalErrorFields').hide();
+    });
+
+    $('.red').on('click', function() {
+        $('#modalErrorFields').show();
+    });
+
     $('#testModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var testName = button.data('testname'); // Extract info from data-* attributes
