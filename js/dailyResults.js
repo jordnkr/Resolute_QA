@@ -11,6 +11,18 @@ jQuery(document).ready(function($) {
         $('#modalErrorFields').show();
     });
 
+    $('#selectTestsBtn').on('click', function() {
+        $('#selectTestsBtnContainer').hide();
+        $('#addBugsBtnContainer').show();
+        $('.testCheckbox').show();
+    });
+
+    $('#addBugsCancelBtn').on('click', function() {
+        $('.testCheckbox').hide();
+        $('#addBugsBtnContainer').hide();
+        $('#selectTestsBtnContainer').show();
+    });
+
     $('#testModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var testName = button.data('testname'); // Extract info from data-* attributes
