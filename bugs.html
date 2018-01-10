@@ -42,8 +42,9 @@
       </nav>
       <div class="container-fluid mt-5">
           <h2 class="text-center">Bugs for MyProject</h2>
-          <div class="row justify-content-md-center mt-3">
+          <div class="row justify-content-md-center">
               <div class="col-md-10">
+                  <!--<button type="button" class="btn btn-dark ml-3" data-toggle="modal" data-target="#createBugModal">+ Bug</button>-->
                   <table id="bugsTable" class="table no-border grayBorder text-center">
                       <thead>
                           <tr>
@@ -91,6 +92,32 @@
                           </tr>
                       </tbody>
                   </table>
+              </div>
+          </div>
+      </div>
+      <!-- Edit Bug Modal -->
+      <div class="modal fade" id="createBugModal" tabindex="-1" role="dialog" aria-labelledby="createBugModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-md-center">
+                      <h5 class="modal-title" id="createBugModalLabel">Create Bug</h5>
+                  </div>
+                  <div class="modal-body">
+                      <label for="createBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="createBugSourceControlIdInput" value=""><br>
+                      <label for="createBugTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="createBugTitleInput" value=""><br>
+                      <label for="createBugDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="createBugDescriptionInput" value=""><br>
+                      <label for="createBugSourceControlInput"><b>Source Control:</b></label>
+                      <input class="form-control" type="text" id="createBugSourceControlInput" value=""><br>
+                      <label for="createBugUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="createBugUrlInput" value="">
+                  </div>
+                  <div class="modal-footer justify-content-md-center">
+                      <button id="submitCreateBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
               </div>
           </div>
       </div>
