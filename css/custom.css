@@ -40,3 +40,7 @@ button {
 .hidden {
     display: none;
 }
+
+#resultsTable tr td:nth-child(1), #resultsTable tr td:nth-child(2) { /* I don't think they are 0 based */
+   text-align: left;
+}

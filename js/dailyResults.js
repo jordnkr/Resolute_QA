@@ -37,6 +37,11 @@ jQuery(document).ready(function($) {
         modal.find('#modalTestNamespace').text(namespace);
     });
 
+    $('#addBugToTestsModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        
+    });
+
     $('#resultModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var testName = button.data('testname');

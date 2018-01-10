@@ -50,7 +50,7 @@
                       </div>
                       <div class="col-md-4 hidden" id="addBugsBtnContainer">
                           <button type="button" class="btn btn-dark ml-3" id="addBugsCancelBtn">Cancel</button>
-                          <button type="button" class="btn btn-dark">+ Bug</button>
+                          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#addBugToTestsModal">+ Bug</button>
                       </div>
                       <div class="col-md-4" align="center">
                           <select class="form-control" style="width:auto;">
@@ -170,6 +170,35 @@
                   </div>
                   <div class="modal-footer justify-content-md-center">
                       <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Create Bugs Modal -->
+      <div class="modal fade" id="addBugToTestsModal" tabindex="-1" role="dialog" aria-labelledby="addBugToTestsModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-md-center">
+                      <h5 class="modal-title" id="addBugToTestsModalLabel">Add Bug to Tests</h5>
+                  </div>
+                  <div class="modal-body">
+                      <p>
+                          Please fill in the fields to add a bug to the selected tests.
+                      </p>
+                      <label for="createBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="addBugSourceControlIdInput" value=""><br>
+                      <label for="createBugTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="addBugTitleInput" value=""><br>
+                      <label for="createBugDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="addBugDescriptionInput" value=""><br>
+                      <label for="createBugSourceControlInput"><b>Source Control:</b></label>
+                      <input class="form-control" type="text" id="addBugSourceControlInput" value=""><br>
+                      <label for="createBugUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="addBugUrlInput" value="">
+                  </div>
+                  <div class="modal-footer justify-content-md-center">
+                      <button id="submitAddBugBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                   </div>
               </div>
           </div>
