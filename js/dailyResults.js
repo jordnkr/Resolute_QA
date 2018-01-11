@@ -17,10 +17,34 @@ jQuery(document).ready(function($) {
         $('.testCheckbox').show();
     });
 
+    $('#plusBugBtn').on('click', function() {
+        $('#addBugSourceControlIdInput').val('');
+        $('#addBugTitleInput').val('');
+        $('#addBugDescriptionInput').val('');
+        $('#addBugUrlInput').val('');
+    });
+
     $('#addBugsCancelBtn').on('click', function() {
         $('.testCheckbox').hide();
         $('#addBugsBtnContainer').hide();
         $('#selectTestsBtnContainer').show();
+    });
+
+    $('#submitAddBugBtn').on('click', function() {
+        var selected = [];
+
+        //fix this
+        $('input:checked').each(function() {
+            selected.push($(this).data('testid'));
+        });
+
+        $('#addBugSourceControlIdInput').val();
+        $('#addBugTitleInput').val();
+        $('#addBugDescriptionInput').val();
+        $('#addBugSourceControlInput').val();
+        $('#addBugUrlInput').val();
+
+        // submit request with selected checkboxes
     });
 
     $('#testModal').on('show.bs.modal', function (event) {
@@ -39,7 +63,7 @@ jQuery(document).ready(function($) {
 
     $('#addBugToTestsModal').on('show.bs.modal', function (event) {
         var modal = $(this);
-        
+
     });
 
     $('#resultModal').on('show.bs.modal', function (event) {
