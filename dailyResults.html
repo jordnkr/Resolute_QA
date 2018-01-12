@@ -155,24 +155,43 @@
                       <div class="mt-4">
                           <h3 class="inline">Bugs</h3>
                           <div class="inline" id="testAddBugBtnContainer">
-                              <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Bug</button>
+                              <button type="button" id="testAddSingleBugBtn" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Bug</button>
                           </div>
-                          <div class="hidden" id="testBugDecisionBtnContainer">
+                          <div class="inline" style="display:none;" id="testBugDecisionBtnContainer">
                               <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugSubmitBtn">Submit</button>
                               <button type="button" class="btn btn-outline-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugCancelBtn">Cancel</button>
                           </div>
-                          <table id="modalBugTable" class="table text-center">
-                              <thead>
-                                  <th>Source Control ID</th>
-                                  <th>Title</th>
-                              </thead>
-                              <tbody>
-                                  <td>
-                                      <a href="#">123456</a>
-                                  </td>
-                                  <td>Nav link doesn't work as expected. the menu isn't opening when we want it to.</td>
-                              </tbody>
-                          </table>
+                          <div id="testBugsTableContainer">
+                              <table id="modalBugTable" class="table text-center">
+                                  <thead>
+                                      <th>Source Control ID</th>
+                                      <th>Title</th>
+                                  </thead>
+                                  <tbody id="modalBugTableBody">
+                                      <tr>
+                                          <td>
+                                              <a href="#">123456</a>
+                                          </td>
+                                          <td>Nav link doesn't work as expected. the menu isn't opening when we want it to.</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div id="addSingleBugFormContainer" style="display:none;">
+                              <label for="createSingleBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                              <input class="form-control" type="text" id="createSingleBugSourceControlIdInput" value=""><br>
+                              <label for="createSingleBugTitleInput"><b>Title:</b></label>
+                              <input class="form-control" type="text" id="createSingleBugTitleInput" value=""><br>
+                              <label for="createSingleBugDescriptionInput"><b>Description:</b></label>
+                              <input class="form-control" type="text" id="createSingleBugDescriptionInput" value=""><br>
+                              <label for="createSingleBugSourceControlInput"><b>Source Control:</b></label>
+                              <select class="form-control" type="text" id="createSingleBugSourceControlInput">
+                                  <option>TFS</option>
+                                  <option>JIRA</option>
+                              </select><br>
+                              <label for="createSingleBugUrlInput"><b>URL:</b></label>
+                              <input class="form-control" type="text" id="createSingleBugUrlInput" value="">
+                          </div>
                       </div>
                   </div>
                   <div class="modal-footer justify-content-md-center">
@@ -192,19 +211,19 @@
                       <p>
                           Please fill in the fields to add a bug to the selected tests.
                       </p>
-                      <label for="createBugSourceControlIdInput"><b>Source Control ID:</b></label>
-                      <input class="form-control" type="text" id="addBugSourceControlIdInput" value=""><br>
-                      <label for="createBugTitleInput"><b>Title:</b></label>
-                      <input class="form-control" type="text" id="addBugTitleInput" value=""><br>
-                      <label for="createBugDescriptionInput"><b>Description:</b></label>
-                      <input class="form-control" type="text" id="addBugDescriptionInput" value=""><br>
+                      <label for="createBugsSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="createBugsSourceControlIdInput" value=""><br>
+                      <label for="createBugsTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="createBugsTitleInput" value=""><br>
+                      <label for="createBugsDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="createBugsDescriptionInput" value=""><br>
                       <label for="createBugSourceControlInput"><b>Source Control:</b></label>
-                      <select class="form-control" type="text" id="addBugSourceControlInput">
+                      <select class="form-control" type="text" id="createBugSourceControlInput">
                           <option>TFS</option>
                           <option>JIRA</option>
                       </select><br>
-                      <label for="createBugUrlInput"><b>URL:</b></label>
-                      <input class="form-control" type="text" id="addBugUrlInput" value="">
+                      <label for="createBugsUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="createBugsUrlInput" value="">
                   </div>
                   <div class="modal-footer justify-content-md-center">
                       <button id="submitAddBugBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>

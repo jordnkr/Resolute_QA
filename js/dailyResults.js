@@ -47,17 +47,26 @@ jQuery(document).ready(function($) {
         // submit request with selected checkboxes
     });
 
-    $('#testAddBugBtnContainer button').on('click', function() {
-        $('#testAddBugBtnContainer').removeClass().addClass('hidden');
-        $('#testBugDecisionBtnContainer').removeClass().addClass('inline');
+    $('#testAddSingleBugBtn').on('click', function() {
+        $('#testAddBugBtnContainer').hide();
+        $('#testBugsTableContainer').hide();
+        $('#testBugDecisionBtnContainer').show();
+        $('#addSingleBugFormContainer').show();
     });
 
     $('#testBugDecisionBtnContainer button').on('click', function() {
-        $('#testBugDecisionBtnContainer').removeClass().addClass('hidden');
-        $('#testAddBugBtnContainer').removeClass().addClass('inline');
+        $('#testBugDecisionBtnContainer').hide();
+        $('#addSingleBugFormContainer').hide();
+        $('#testAddBugBtnContainer').show();
+        $('#testBugsTableContainer').show();
     });
 
     $('#testModal').on('show.bs.modal', function (event) {
+        $('#testBugDecisionBtnContainer').hide();
+        $('#addSingleBugFormContainer').hide();
+        $('#testAddBugBtnContainer').show();
+        $('#testBugsTableContainer').show();
+
         var button = $(event.relatedTarget); // Button that triggered the modal
         var testName = button.data('testname'); // Extract info from data-* attributes
         var testClass = button.data('testclass');
@@ -69,11 +78,22 @@ jQuery(document).ready(function($) {
         modal.find('.modal-title').text(testName);
         modal.find('#modalTestClass').text(testClass);
         modal.find('#modalTestNamespace').text(namespace);
+
+        // Clear create bug inputs on open
+        modal.find('#createSingleBugSourceControlIdInput').val('');
+        modal.find('#createSingleBugTitleInput').val('');
+        modal.find('#createSingleBugDescriptionInput').val('');
+        modal.find('#createSingleBugUrlInput').val('');
     });
 
     $('#addBugToTestsModal').on('show.bs.modal', function (event) {
-        var modal = $(this);
 
+        // Clear input fields on open
+        var modal = $(this);
+        modal.find('#createBugsSourceControlIdInput').val('');
+        modal.find('#createBugsTitleInput').val('');
+        modal.find('#createBugsDescriptionInput').val('');
+        modal.find('#createBugsUrlInput').val('');
     });
 
     $('#resultModal').on('show.bs.modal', function (event) {
