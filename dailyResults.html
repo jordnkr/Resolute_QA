@@ -80,6 +80,7 @@
                               <td>
                                   <input type="checkbox" class="testCheckbox hidden" data-testid="">
                                   <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest3" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapplicationname.tests">ExampleTest3</span>
+                                  <img src="image/icons/bug.png" />
                               </td>
                               <td>ThisIsMyClass</td>
                               <td>53.16</td>
@@ -152,8 +153,14 @@
                           <span id="modalTestNamespace"></span>
                       </div>
                       <div class="mt-4">
-                          <h3 style="display:inline;">Bugs</h3>
-                          <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Bug</button>
+                          <h3 class="inline">Bugs</h3>
+                          <div class="inline" id="testAddBugBtnContainer">
+                              <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Bug</button>
+                          </div>
+                          <div class="hidden" id="testBugDecisionBtnContainer">
+                              <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugSubmitBtn">Submit</button>
+                              <button type="button" class="btn btn-outline-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugCancelBtn">Cancel</button>
+                          </div>
                           <table id="modalBugTable" class="table text-center">
                               <thead>
                                   <th>Source Control ID</th>

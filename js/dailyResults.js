@@ -47,6 +47,16 @@ jQuery(document).ready(function($) {
         // submit request with selected checkboxes
     });
 
+    $('#testAddBugBtnContainer button').on('click', function() {
+        $('#testAddBugBtnContainer').removeClass().addClass('hidden');
+        $('#testBugDecisionBtnContainer').removeClass().addClass('inline');
+    });
+
+    $('#testBugDecisionBtnContainer button').on('click', function() {
+        $('#testBugDecisionBtnContainer').removeClass().addClass('hidden');
+        $('#testAddBugBtnContainer').removeClass().addClass('inline');
+    });
+
     $('#testModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var testName = button.data('testname'); // Extract info from data-* attributes
