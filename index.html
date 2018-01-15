@@ -16,8 +16,33 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="index.html">Resolute QA</a>
       </nav>
-      <div class="container">
-          <a href="summary.html">Link to Summary</a>
+      <div class="container text-center">
+          <h1>Projects</h1>
+          <table id="projectsTable" class="table table-striped mt-5">
+              <thead>
+                  <tr>
+                      <th>Project</th>
+                      <th>Environments</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>My Project</td>
+                      <td>
+                          <a class="underline ml-3" href="summary.html">Dev</a>
+                          <a class="underline ml-3" href="summary.html">QA</a>
+                          <a class="underline ml-3" href="summary.html">Production</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>My Other Project</td>
+                      <td>
+                          <a class="underline ml-3" href="summary.html">QA</a>
+                          <a class="underline ml-3" href="summary.html">Production</a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
       </div>
 
       <!-- Optional JavaScript -->
@@ -30,6 +55,6 @@
       <script defer src="js/libraries/bootstrap.min.js"></script>
       <script defer src="js/libraries/datatables.min.js"></script>
       <script defer src="js/libraries/Chart.min.js"></script>
-      <script defer src="js/summary.js"></script>
+      <script defer src="js/index.js"></script>
   </body>
 </html>
