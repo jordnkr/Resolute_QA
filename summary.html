@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-      <title>Resolute QA</title>
+      <title>Summary Results - Resolute QA</title>
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/bootstrap-grid.min.css">
       <link rel="stylesheet" href="css/datatables.min.css">
@@ -41,7 +40,9 @@
           </div>
       </nav>
       <div class="container">
-          <h1 class="text-center mt-5 mb-5">My Team Testing</h1>
+          <div class="row justify-content-center">
+              <h1 class="mt-5 mb-5 text-center">My Team Testing</h1>
+          </div>
           <div class="row">
               <div class="col-md-6 text-center">
                   <h2 class="mt-4">Overall Result Summary</h2>
@@ -69,9 +70,11 @@
               </div>
           </div>
       </div>
-      <div class="container-fluid text-center mt-5">
-          <h3>Suite Result Summaries</h3>
-          <div class="row justify-content-md-center">
+      <div class="container-fluid mt-5">
+          <div class="row justify-content-center">
+              <h3>Suite Result Summaries</h3>
+          </div>
+          <div class="row justify-content-center">
               <div class="col-md-10">
                   <table id="suiteSummaryTable" class="table no-border">
                       <thead>
@@ -141,14 +144,10 @@
           </div>
       </div>
 
-      <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
-      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
-      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
       <script defer src="js/libraries/jquery-3.2.1.min.js"></script>
       <script defer src="js/libraries/popper.min.js"></script>
-      <script defer src="js/libraries/bootstrap.min.js"></script>
+      <script defer src="js/libraries/bootstrap.min.js"></script><!--4.0.0-beta.3-->
       <script defer src="js/libraries/datatables.min.js"></script>
       <script defer src="js/libraries/Chart.min.js"></script>
       <script defer src="js/summary.js"></script>
