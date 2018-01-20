@@ -25,12 +25,13 @@ SECRET_KEY = '%&y^aecbk7(cse6nadk7_=yokgu88l)0ls9nfjyokn*ftm)gxx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'resoluteqa.apps.ResoluteqaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

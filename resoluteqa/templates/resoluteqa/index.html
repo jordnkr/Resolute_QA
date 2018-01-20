@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <title>Resolute QA</title>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      {% load static %}
+
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/bootstrap.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/bootstrap-grid.min.css' %}">
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/datatables.min.css' %}">
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/custom.css' %}">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="{% url 'resoluteqa:index' %}">Resolute QA</a>
+      </nav>
+      <div class="container text-center mt-5">
+          <h1>Projects</h1>
+          <table id="projectsTable" class="table table-striped mt-3">
+              <thead>
+                  <tr>
+                      <th>Project</th>
+                      <th>Environments</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>My Project</td>
+                      <td>
+                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Dev</a>
+                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">QA</a>
+                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Production</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>My Other Project</td>
+                      <td>
+                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">QA</a>
+                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Production</a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script defer src="{% static 'resoluteqa/js/libraries/jquery-3.2.1.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/popper.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/bootstrap.min.js' %}"></script><!--4.0.0-beta.3-->
+      <script defer src="{% static 'resoluteqa/js/libraries/datatables.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/Chart.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/projects.js' %}"></script>
+  </body>
+</html>
