@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <title>Bugs - Resolute QA</title>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      {% load static %}
+
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/bootstrap.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/bootstrap-grid.min.css' %}">
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/datatables.min.css' %}">
+      <link rel="stylesheet" href="{% static 'resoluteqa/css/styles.css' %}">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="{% url 'resoluteqa:index' %}">Resolute QA</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'resoluteqa:summary' 3 %}">Summary</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Daily Results
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
+                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite1</a>
+                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite2</a>
+                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite3</a>
+                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite4</a>
+                      </div>
+                  </li>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'resoluteqa:bugs' 3 %}">Bugs<span class="sr-only">(current)</span></a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+      <div class="container-fluid mt-5">
+          <div class="row justify-content-center">
+              <h1 class="text-center">Bugs for MyProject</h1>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-md-10">
+                  <!--<button type="button" class="btn btn-dark ml-3" data-toggle="modal" data-target="#createBugModal">+ Bug</button>-->
+                  <table id="bugsTable" class="table no-border grayBorder text-center">
+                      <thead>
+                          <tr>
+                              <th>Source Control ID</th>
+                              <th>Bug Title</th>
+                              <th>Description</th>
+                              <th>Source Control</th>
+                              <th>URL</th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>123456</td>
+                              <td>Logo link broken</td>
+                              <td>Logo does not link to home page</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
+                              <td>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123456" data-title="Logo link broken" data-description="Logo does not link to home page" data-source="TFS" data-url="https://www.google.com">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123456">Delete</button>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>123123</td>
+                              <td>Menu won't open</td>
+                              <td>Menu does not open as expected</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
+                              <td>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123123" data-title="Menu won't open" data-description="Menu does not open as expected" data-source="TFS" data-url="https://www.google.com">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123123">Delete</button>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>050505</td>
+                              <td>Nav link broken</td>
+                              <td>Nav link doesn't work</td>
+                              <td>TFS</td>
+                              <td><a href="https://www.google.com">https://www.google.com</a></td>
+                              <td>
+                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="050505" data-title="Nav link broken" data-description="Nav link doesn't work" data-source="TFS" data-url="https://www.google.com">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="050505">Delete</button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      <!-- Create Bug Modal -->
+      <div class="modal fade" id="createBugModal" tabindex="-1" role="dialog" aria-labelledby="createBugModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                      <h5 class="modal-title" id="createBugModalLabel">Create Bug</h5>
+                  </div>
+                  <div class="modal-body">
+                      <label for="createBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="createBugSourceControlIdInput" value=""><br>
+                      <label for="createBugTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="createBugTitleInput" value=""><br>
+                      <label for="createBugDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="createBugDescriptionInput" value=""><br>
+                      <label for="createBugSourceControlInput"><b>Source Control:</b></label>
+                      <input class="form-control" type="text" id="createBugSourceControlInput" value=""><br>
+                      <label for="createBugUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="createBugUrlInput" value="">
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                      <button id="submitCreateBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Edit Bug Modal -->
+      <div class="modal fade" id="editBugModal" tabindex="-1" role="dialog" aria-labelledby="editBugModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                      <h5 class="modal-title" id="editBugModalLabel">Edit Bug <span id="modalEditTitle"></span></h5>
+                  </div>
+                  <div class="modal-body">
+                      <label for="editBugSourceControlIdInput"><b>Source Control ID:</b></label>
+                      <input class="form-control" type="text" id="editBugSourceControlIdInput" value=""><br>
+                      <label for="editBugTitleInput"><b>Title:</b></label>
+                      <input class="form-control" type="text" id="editBugTitleInput" value=""><br>
+                      <label for="editBugDescriptionInput"><b>Description:</b></label>
+                      <input class="form-control" type="text" id="editBugDescriptionInput" value=""><br>
+                      <label for="editBugSourceControlInput"><b>Source Control:</b></label>
+                      <input class="form-control" type="text" id="editBugSourceControlInput" value=""><br>
+                      <label for="editBugUrlInput"><b>URL:</b></label>
+                      <input class="form-control" type="text" id="editBugUrlInput" value="">
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                      <button id="submitEditBtn" type="button" class="btn btn-dark" data-dismiss="modal">Submit</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Confirm Delete Modal -->
+      <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                  <div class="modal-header justify-content-center">
+                      <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm</h5>
+                  </div>
+                  <div class="modal-body">
+                      <p class="text-center">Are you sure you want to delete bug <span id="modalConfirmNumber"></span>?</p>
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                      <button id="confirmDeleteBtn" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script defer src="{% static 'resoluteqa/js/libraries/jquery-3.2.1.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/popper.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/bootstrap.min.js' %}"></script><!--4.0.0-beta.3-->
+      <script defer src="{% static 'resoluteqa/js/libraries/datatables.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/libraries/Chart.min.js' %}"></script>
+      <script defer src="{% static 'resoluteqa/js/bugs.js' %}"></script>
+  </body>
+</html>
