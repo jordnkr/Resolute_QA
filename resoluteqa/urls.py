@@ -11,5 +11,5 @@ urlpatterns = [
     # ex: /resoluteqa/suite/3/dailyresults
     path('suite/<int:suite_id>/dailyresults', views.dailyresults, name='dailyresults'),
     # ex: /resoluteqa/suite/3/bugs
-    path('suite/<int:suite_id>/bugs', views.dailyresults, name='dailyresults'),
+    path('suite/<int:suite_id>/bugs', views.bugs, name='bugs'),
 ]
