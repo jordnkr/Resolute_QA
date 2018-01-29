@@ -5,3 +5,8 @@ class Environment(models.Model):
     environment_name = models.CharField(max_length=25)
     updated_on = models.DateTimeField(auto_now=True)
     insert_date = models.DateTimeField(auto_now_add=True)
+
+class Project(models.Model):
+    project_name = models.CharField(max_length=50)
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
