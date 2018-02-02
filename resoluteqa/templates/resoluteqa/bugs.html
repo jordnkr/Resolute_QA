@@ -21,28 +21,27 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'resoluteqa:summary' 3 %}">Summary</a>
+                      <a class="nav-link" href="{% url 'resoluteqa:summary' projectenvironment.id %}">Summary</a>
                   </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Daily Results
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
-                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite1</a>
-                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite2</a>
-                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite3</a>
-                          <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' 3 %}">Suite4</a>
+                          {% for suite in suite_list %}
+                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite_name }}</a>
+                          {% endfor %}
                       </div>
                   </li>
                   <li class="nav-item active">
-                      <a class="nav-link" href="{% url 'resoluteqa:bugs' 3 %}">Bugs<span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 'resoluteqa:bugs' projectenvironment.id %}">Bugs<span class="sr-only">(current)</span></a>
                   </li>
               </ul>
           </div>
       </nav>
       <div class="container-fluid mt-5">
           <div class="row justify-content-center">
-              <h1 class="text-center">Bugs for MyProject</h1>
+              <h1 class="text-center">Bugs for {{ projectenvironment.project }}</h1>
           </div>
           <div class="row justify-content-center">
               <div class="col-md-10">
