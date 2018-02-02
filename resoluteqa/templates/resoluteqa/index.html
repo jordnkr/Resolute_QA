@@ -26,21 +26,16 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td>My Project</td>
-                      <td>
-                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Dev</a>
-                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">QA</a>
-                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Production</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>My Other Project</td>
-                      <td>
-                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">QA</a>
-                          <a class="underline ml-3" href="{% url 'resoluteqa:summary' 3 %}">Production</a>
-                      </td>
-                  </tr>
+                  {% for project in project_list %}
+                      <tr>
+                          <td>{{ project.project_name }}</td>
+                          <td>
+                              {% for projenv in project.projectenvironment_set.all %}
+                                  <a class="underline ml-3" href="{% url 'resoluteqa:summary' projenv.id %}">{{ projenv.environment }}</a>
+                              {% endfor %}
+                          </td>
+                      </tr>
+                  {% endfor %}
               </tbody>
           </table>
       </div>
