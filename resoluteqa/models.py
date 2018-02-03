@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 # Create your models here.
 class Environment(models.Model):
@@ -28,3 +29,17 @@ class Suite(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.suite_name
+
+class SuiteRun(models.Model):
+    suite = models.ForeignKey(Suite, on_delete=models.CASCADE)
+    total_tests = models.IntegerField(default=0)
+    passed_tests = models.IntegerField(default=0)
+    failed_tests = models.IntegerField(default=0)
+    inconclusive_tests = models.IntegerField(default=0)
+    ignored_tests = models.IntegerField(default=0)
+    result_precentage = models.DecimalField(max_digits=5,decimal_places=2,default=Decimal('0.00'))
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(auto_now_add=True)
+    total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
