@@ -43,3 +43,5 @@ class SuiteRun(models.Model):
     total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))
     updated_on = models.DateTimeField(auto_now=True)
     insert_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.suite.suite_name + ' ' + str(self.insert_date)

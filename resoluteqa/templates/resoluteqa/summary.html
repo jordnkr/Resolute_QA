@@ -90,54 +90,20 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr class="summaryRow" data-percentage="100">
-                              <td>
-                                  <a href="{% url 'resoluteqa:dailyresults' 3 %}" class="link">Suite1</a>
-                              </td>
-                              <td>01/04/17</td>
-                              <td>70</td>
-                              <td>70</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>100%</td>
-                          </tr>
-                          <tr class="summaryRow" data-percentage="82.35">
-                              <td>
-                                  <a href="{% url 'resoluteqa:dailyresults' 3 %}" class="link">Suite2</a>
-                              </td>
-                              <td>01/04/17</td>
-                              <td>85</td>
-                              <td>70</td>
-                              <td>15</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>82.35%</td>
-                          </tr>
-                          <tr class="summaryRow" data-percentage="69.00">
-                              <td>
-                                  <a href="{% url 'resoluteqa:dailyresults' 3 %}" class="link">Suite3</a>
-                              </td>
-                              <td>01/04/17</td>
-                              <td>100</td>
-                              <td>69</td>
-                              <td>31</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>69.00%</td>
-                          </tr>
-                          <tr class="summaryRow" data-percentage="59.00">
-                              <td>
-                                  <a href="{% url 'resoluteqa:dailyresults' 3 %}" class="link">Suite4</a>
-                              </td>
-                              <td>01/04/17</td>
-                              <td>100</td>
-                              <td>59</td>
-                              <td>41</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>59.00%</td>
-                          </tr>
+                          {% for run in suite_runs %}
+                              <tr class="summaryRow" data-percentage="{{ run.result_precentage }}">
+                                  <td>
+                                      <a href="{% url 'resoluteqa:dailyresults' run.suite.id %}" class="link">{{ run.suite.suite_name }}</a>
+                                  </td>
+                                  <td>{{ run.start_time|date:"m-d-Y" }}</td>
+                                  <td>{{ run.total_tests }}</td>
+                                  <td>{{ run.passed_tests }}</td>
+                                  <td>{{ run.failed_tests }}</td>
+                                  <td>{{ run.inconclusive_tests }}</td>
+                                  <td>{{ run.ignored_tests }}</td>
+                                  <td>{{ run.result_precentage }}%</td>
+                              </tr>
+                          {% endfor %}
                       </tbody>
                   </table>
               </div>

@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Environment, Project, Suite, ProjectEnvironment
+from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun
 
 def index(request):
     project_list = Project.objects.all()
@@ -10,9 +10,13 @@ def index(request):
 def summary(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
     suite_list = Suite.objects.filter(project_environment_id=projenv_id)
+    suite_runs = []
+    for suite in suite_list:
+        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('id'))
     context = {
         'projectenvironment': projectenvironment,
-        'suite_list': suite_list
+        'suite_list': suite_list,
+        'suite_runs': suite_runs
     }
     return render(request, 'resoluteqa/summary.html', context)
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Environment, Project, ProjectEnvironment, Suite
+from .models import Environment, Project, ProjectEnvironment, Suite, SuiteRun
 
 class ProjectEnvironmentInline(admin.TabularInline):
     model = ProjectEnvironment
