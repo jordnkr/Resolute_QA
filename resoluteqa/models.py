@@ -56,3 +56,13 @@ class Test(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.test_name
+
+class Bug(models.Model):
+    source_control = models.CharField(max_length=20)
+    source_control_id = models.IntegerField(default=0)
+    description = models.CharField(max_length=200)
+    url = models.CharField(max_length=200)
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.source_control + ' - ' + self.source_control_id
