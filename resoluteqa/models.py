@@ -85,3 +85,7 @@ class Bug(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.source_control + ' - ' + self.source_control_id
+
+class TestBug(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
