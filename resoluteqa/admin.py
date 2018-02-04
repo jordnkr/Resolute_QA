@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Environment, Project, ProjectEnvironment, Suite, SuiteRun
+from .models import Environment, Project, ProjectEnvironment, Suite, SuiteRun, Test
 
 class ProjectEnvironmentInline(admin.TabularInline):
     model = ProjectEnvironment
@@ -16,3 +16,4 @@ admin.site.register(Environment, EnvironmentAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Suite)
 admin.site.register(SuiteRun)
+admin.site.register(Test)

@@ -45,3 +45,14 @@ class SuiteRun(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.suite.suite_name + ' ' + str(self.insert_date)
+
+class Test(models.Model):
+    suite = models.ForeignKey(Suite, on_delete=models.CASCADE)
+    test_name = models.CharField(max_length=50)
+    test_category = models.CharField(max_length=50)
+    class_name = models.CharField(max_length=50)
+    namespace = models.CharField(max_length=200)
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.test_name
