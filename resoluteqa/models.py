@@ -56,7 +56,7 @@ class Test(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.test_name
-        
+
 class TestResult(models.Model):
     suite_run = models.ForeignKey(SuiteRun, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
@@ -66,6 +66,13 @@ class TestResult(models.Model):
     end_time = models.DateTimeField(auto_now_add=True)
     total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))
     console_output = models.TextField()
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
+
+class Error(models.Model):
+    test_result = models.ForeignKey(TestResult, on_delete=models.CASCADE)
+    error_message = models.TextField()
+    stack_trace = models.TextField()
     updated_on = models.DateTimeField(auto_now=True)
     insert_date = models.DateTimeField(auto_now_add=True)
 
