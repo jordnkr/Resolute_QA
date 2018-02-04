@@ -56,6 +56,18 @@ class Test(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.test_name
+        
+class TestResult(models.Model):
+    suite_run = models.ForeignKey(SuiteRun, on_delete=models.CASCADE)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    result = models.CharField(max_length=20)
+    host = models.CharField(max_length=50)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(auto_now_add=True)
+    total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))
+    console_output = models.TextField()
+    updated_on = models.DateTimeField(auto_now=True)
+    insert_date = models.DateTimeField(auto_now_add=True)
 
 class Bug(models.Model):
     source_control = models.CharField(max_length=20)
