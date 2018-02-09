@@ -52,21 +52,25 @@
                               <th>Total Tests</th>
                               <th>Passed</th>
                               <th>Failed</th>
+                              <th>Inconclusive</th>
+                              <th>Ignored</th>
                               <th>Result %</th>
                           </tr>
                       </thead>
                       <tbody>
                           <tr>
-                              <td>355</td>
-                              <td>268</td>
-                              <td>87</td>
-                              <td><span id="totalPercentDouble">75.49</span>%</td>
+                              <td>{{ total_tests }}</td>
+                              <td>{{ passed_tests }}</td>
+                              <td>{{ failed_tests }}</td>
+                              <td>{{ inconclusive_tests }}</td>
+                              <td>{{ ignored_tests }}</td>
+                              <td>{{ pass_percentage }}%</td>
                           </tr>
                       </tbody>
                   </table>
               </div>
               <div class="col-md-6">
-                  <canvas id="overallSummaryChart" width="200" height="200"></canvas>
+                  <canvas id="overallSummaryChart" width="200" height="200" data-passpercent="{{ pass_percentage }}" data-failpercent="{{ fail_percentage }}"></canvas>
               </div>
           </div>
       </div>

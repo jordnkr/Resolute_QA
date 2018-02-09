@@ -1,10 +1,11 @@
 jQuery(document).ready(function($) {
-    var ctx = document.getElementById("overallSummaryChart");
+    var ctx = $('#overallSummaryChart');
+
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [24.51, 75.49],
+                data: [ctx.attr('data-failpercent'), ctx.attr('data-passpercent')],
                 backgroundColor: ['#ea8383', '#83ea94']
             }],
 
