@@ -81,7 +81,7 @@ class Error(models.Model):
 class Bug(models.Model):
     source_control = models.CharField(max_length=20)
     source_control_id = models.IntegerField(default=0)
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
     updated_on = models.DateTimeField(auto_now=True)
     insert_date = models.DateTimeField(auto_now_add=True)

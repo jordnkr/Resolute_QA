@@ -51,46 +51,24 @@
                           <tr>
                               <th>Source Control ID</th>
                               <th>Bug Title</th>
-                              <th>Description</th>
                               <th>Source Control</th>
                               <th>URL</th>
-                              <th></th>
+                              <th>Actions</th>
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td>123456</td>
-                              <td>Logo link broken</td>
-                              <td>Logo does not link to home page</td>
-                              <td>TFS</td>
-                              <td><a href="https://www.google.com">https://www.google.com</a></td>
-                              <td>
-                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123456" data-title="Logo link broken" data-description="Logo does not link to home page" data-source="TFS" data-url="https://www.google.com">Edit</button>
-                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123456">Delete</button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>123123</td>
-                              <td>Menu won't open</td>
-                              <td>Menu does not open as expected</td>
-                              <td>TFS</td>
-                              <td><a href="https://www.google.com">https://www.google.com</a></td>
-                              <td>
-                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="123123" data-title="Menu won't open" data-description="Menu does not open as expected" data-source="TFS" data-url="https://www.google.com">Edit</button>
-                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="123123">Delete</button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>050505</td>
-                              <td>Nav link broken</td>
-                              <td>Nav link doesn't work</td>
-                              <td>TFS</td>
-                              <td><a href="https://www.google.com">https://www.google.com</a></td>
-                              <td>
-                                  <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="050505" data-title="Nav link broken" data-description="Nav link doesn't work" data-source="TFS" data-url="https://www.google.com">Edit</button>
-                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="050505">Delete</button>
-                              </td>
-                          </tr>
+                          {% for bug in bug_list %}
+                              <tr>
+                                  <td>{{ bug.source_control_id }}</td>
+                                  <td>{{ bug.title }}</td>
+                                  <td>{{ bug.source_control }}</td>
+                                  <td><a href="{{ bug.url }}">{{ bug.url }}</a></td>
+                                  <td>
+                                      <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="{{ bug.source_control_id }}" data-title="{{ bug.title }}" data-source="{{ bug.source_control }}" data-url="{{ bug.url }}" data-id="{{ bug.id }}">Edit</button>
+                                      <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="{{ bug.source_control_id }}" data-id="{{ bug.id }}">Delete</button>
+                                  </td>
+                              </tr>
+                          {% endfor %}
                       </tbody>
                   </table>
               </div>
@@ -108,8 +86,6 @@
                       <input class="form-control" type="text" id="createBugSourceControlIdInput" value=""><br>
                       <label for="createBugTitleInput"><b>Title:</b></label>
                       <input class="form-control" type="text" id="createBugTitleInput" value=""><br>
-                      <label for="createBugDescriptionInput"><b>Description:</b></label>
-                      <input class="form-control" type="text" id="createBugDescriptionInput" value=""><br>
                       <label for="createBugSourceControlInput"><b>Source Control:</b></label>
                       <input class="form-control" type="text" id="createBugSourceControlInput" value=""><br>
                       <label for="createBugUrlInput"><b>URL:</b></label>
@@ -134,8 +110,6 @@
                       <input class="form-control" type="text" id="editBugSourceControlIdInput" value=""><br>
                       <label for="editBugTitleInput"><b>Title:</b></label>
                       <input class="form-control" type="text" id="editBugTitleInput" value=""><br>
-                      <label for="editBugDescriptionInput"><b>Description:</b></label>
-                      <input class="form-control" type="text" id="editBugDescriptionInput" value=""><br>
                       <label for="editBugSourceControlInput"><b>Source Control:</b></label>
                       <input class="form-control" type="text" id="editBugSourceControlInput" value=""><br>
                       <label for="editBugUrlInput"><b>URL:</b></label>
@@ -150,7 +124,7 @@
       </div>
       <!-- Confirm Delete Modal -->
       <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header justify-content-center">
                       <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm</h5>

@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun
+from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug
 
 def index(request):
     project_list = Project.objects.all()
@@ -9,7 +9,7 @@ def index(request):
 
 def summary(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
-    suite_list = Suite.objects.filter(project_environment_id=projenv_id)
+    suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
 
     passed_tests = 0
     failed_tests = 0
@@ -45,7 +45,7 @@ def summary(request, projenv_id):
 
 def dailyresults(request, suite_id):
     suite = get_object_or_404(Suite, pk=suite_id)
-    suite_list = Suite.objects.filter(project_environment_id=suite.project_environment.id)
+    suite_list = Suite.objects.filter(project_environment_id=suite.project_environment.id).order_by('suite_name')
     context = {
         'suite': suite,
         'suite_list': suite_list
@@ -54,9 +54,13 @@ def dailyresults(request, suite_id):
 
 def bugs(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
-    suite_list = Suite.objects.filter(project_environment_id=projenv_id)
+    suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
+
+    bug_list = Bug.objects.filter(testbug__test__suite__project_environment_id=projenv_id)
+
     context = {
         'projectenvironment': projectenvironment,
-        'suite_list': suite_list
+        'suite_list': suite_list,
+        'bug_list': bug_list
     }
     return render(request, 'resoluteqa/bugs.html', context)
