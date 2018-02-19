@@ -54,12 +54,10 @@
                           <button type="button" class="btn btn-dark" id="addBugsCancelBtn">Cancel</button>
                       </div>
                       <div class="col-md-4" align="center">
-                          <select class="form-control" style="width:auto;">
-                              <option selected>12/23/17 8:34 pm</option>
-                              <option>12/22/17 8:31 pm</option>
-                              <option>12/21/17 9:23 pm</option>
-                              <option>12/19/17 6:53 pm</option>
-                              <option>12/17/17 8:21 pm</option>
+                          <select class="form-control" style="width:auto;" id="suiteRunsSelect">
+                              {% for run in suite_runs %}
+                                  <option {% if run.id == request_suite_run.id %}selected{% endif %} value="{{ run.id }}">{{ run.start_time|date:"m-d-Y h:i A" }}</option>
+                              {% endfor %}
                           </select>
                       </div>
                   </div>
@@ -77,61 +75,18 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest3" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapplicationname.tests">ExampleTest3</span>
-                                  <img src="{% static 'resoluteqa/image/icons/bug.png' %}" />
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="green link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest3" data-result="Passed" data-machine="demosrc1" data-execution="53.16">Passed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest2" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapp.tests">ExampleTest2</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="green link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest2" data-result="Passed" data-machine="demosrc1" data-execution="53.16">Passed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest1" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapp.tests">ExampleTest1</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="red link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest1" data-result="Failed" data-machine="demosrc1" data-execution="53.16">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest5" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapp.tests">ExampleTest5</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="red link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest5" data-result="Failed" data-machine="demosrc1" data-execution="53.16">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest4" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapp.tests">ExampleTest4</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="red link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest4" data-result="Failed" data-machine="demosrc1" data-execution="53.16">Failed</td>
-                          </tr>
-                          <tr>
-                              <td>
-                                  <input type="checkbox" class="testCheckbox hidden" data-testid="">
-                                  <span class="link" data-toggle="modal" data-target="#testModal" data-testname="ExampleTest6" data-testclass="ThisIsMyClass" data-namespace="mysolution.qa.myapp.tests">ExampleTest6</span>
-                              </td>
-                              <td>ThisIsMyClass</td>
-                              <td>53.16</td>
-                              <td class="green link" data-toggle="modal" data-target="#resultModal" data-testname="ExampleTest6" data-result="Passed" data-machine="demosrc1" data-execution="53.16">Passed</td>
-                          </tr>
+                          {% for result in test_results %}
+                              <tr>
+                                  <td>
+                                      <input type="checkbox" class="testCheckbox hidden" data-testid="{{ result.test.id }}">
+                                      <span class="link" data-toggle="modal" data-target="#testModal" data-testname="{{ result.test.test_name }}" data-testclass="{{ result.test.class_name }}" data-namespace="{{ result.test.namespace }}">{{ result.test.test_name }}</span>
+                                      <img class="hidden" src="{% static 'resoluteqa/image/icons/bug.png' %}" />
+                                  </td>
+                                  <td>{{ result.test.class_name }}</td>
+                                  <td>{{ result.total_execution_time }}  </td>
+                                  <td class="{% if result.result == 'Passed' %}green{% elif result.result == 'Failed' %}red{% endif %} link" data-toggle="modal" data-target="#resultModal" data-id="{{ result.id }}" data-testname="{{ result.test.test_name }}" data-result="{{ result.result }}" data-machine="{{ result.host }}" data-execution="{{ result.total_execution_time }}">{{ result.result }}</td>
+                              </tr>
+                          {% endfor %}
                       </tbody>
                   </table>
               </div>
@@ -257,40 +212,20 @@
                           <div>
                               <b>Console Output:</b>
                           </div>
-                          <p style="font-size:0.9em;">
-                              org.openqa.selenium.ElementNotVisibleException: Element is not currently visible and so may not be interacted with
-                              Command duration or timeout: 30.00 seconds
-                              Build info: version: '2.00.0', revision: 'aaaaaa', time: '000000000000000'
-                              System info: host: 'Example-PC', ip: '111.111.111.111', os.name: 'Windows 7', os.arch: 'xxx00', os.version: '0.0', java.version: '1.8.0_00'
-                              Driver info: org.openqa.selenium.chrome.ChromeDriver
-                              Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=0.0.0, platform=WINDOWS, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-                          </p>
+                          <p id="modalConsoleOutput" style="font-size:0.9em;"></p>
                       </div>
                       <div id="modalErrorFields">
                           <div class="mt-4">
                               <div>
                                   <b>Error:</b>
                               </div>
-                              <p style="font-size:0.9em;">
-                                  org.openqa.selenium.ElementNotVisibleException: Element is not currently visible and so may not be interacted with
-                                  Command duration or timeout: 30.00 seconds
-                                  Build info: version: '2.00.0', revision: 'aaaaaa', time: '000000000000000'
-                                  System info: host: 'Example-PC', ip: '111.111.111.111', os.name: 'Windows 7', os.arch: 'xxx00', os.version: '0.0', java.version: '1.8.0_00'
-                                  Driver info: org.openqa.selenium.chrome.ChromeDriver
-                                  Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=0.0.0, platform=WINDOWS, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-                              </p>
+                              <p id="modalErrorOutput" style="font-size:0.9em;"></p>
                           </div>
                           <div>
                               <div>
                                   <b>Stack Trace:</b>
                               </div>
-                              <p style="font-size:0.9em;">
-                                  Exception in thread "main" java.lang.NullPointerException: NullPointerException
-                                  at DemoStackTrace.method111(DemoStackTrace.java:115)
-                                  at DemoStackTrace.method11(DemoStackTrace.java:154)
-                                  at DemoStackTrace.method1(DemoStackTrace.java:2)
-                                  at DemoStackTrace.main(DemoStackTrace.java:234)
-                              </p>
+                              <p id="modalStackTrace" style="font-size:0.9em;"></p>
                           </div>
                       </div>
                   </div>

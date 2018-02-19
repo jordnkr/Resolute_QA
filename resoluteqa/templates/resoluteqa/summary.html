@@ -97,7 +97,7 @@
                           {% for run in suite_runs %}
                               <tr class="summaryRow" data-percentage="{{ run.result_precentage }}">
                                   <td>
-                                      <a href="{% url 'resoluteqa:dailyresults' run.suite.id %}" class="link">{{ run.suite.suite_name }}</a>
+                                      <a href="{% url 'resoluteqa:dailyresults' run.id %}" class="link">{{ run.suite.suite_name }}</a>
                                   </td>
                                   <td>{{ run.start_time|date:"m-d-Y" }}</td>
                                   <td>{{ run.total_tests }}</td>

@@ -1,6 +1,7 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.core import serializers
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
-from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug
+from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error
 
 def index(request):
     project_list = Project.objects.all()
@@ -43,12 +44,18 @@ def summary(request, projenv_id):
     }
     return render(request, 'resoluteqa/summary.html', context)
 
-def dailyresults(request, suite_id):
-    suite = get_object_or_404(Suite, pk=suite_id)
-    suite_list = Suite.objects.filter(project_environment_id=suite.project_environment.id).order_by('suite_name')
+def dailyresults(request, suite_run_id):
+    request_suite_run = get_object_or_404(SuiteRun, pk=suite_run_id)
+    request_suite = Suite.objects.get(id=request_suite_run.suite.id)
+    suite_list = Suite.objects.filter(project_environment_id=request_suite.project_environment.id).order_by('suite_name')
+    suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
+    test_results = TestResult.objects.filter(suite_run__id=suite_run_id)
     context = {
-        'suite': suite,
-        'suite_list': suite_list
+        'request_suite_run': request_suite_run,
+        'suite': request_suite,
+        'suite_list': suite_list,
+        'suite_runs': suite_runs,
+        'test_results': test_results
     }
     return render(request, 'resoluteqa/dailyresults.html', context)
 
@@ -64,3 +71,15 @@ def bugs(request, projenv_id):
         'bug_list': bug_list
     }
     return render(request, 'resoluteqa/bugs.html', context)
+
+def individualresult(request, test_result_id):
+    if request.method == 'GET':
+        result = TestResult.objects.filter(id=test_result_id)
+        error_list = result[0].error_set.all()
+        result = serializers.serialize("json", result)
+        error_list = serializers.serialize("json", error_list)
+        data = {
+            "result": result,
+            "error_list": error_list
+        }
+        return JsonResponse(data)

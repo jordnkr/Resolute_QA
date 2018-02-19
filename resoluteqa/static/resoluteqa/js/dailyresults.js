@@ -3,12 +3,53 @@ jQuery(document).ready(function($) {
         paging: false
     });
 
+    $('#suiteRunsSelect').change(function() {
+        window.location.href = '../' + $(this).val() + '/dailyresults';
+    });
+
     $('.green').on('click', function() {
         $('#modalErrorFields').hide();
+        $.ajax({
+            url: '../../individualresult/' + $(this).data('id'),
+            type: 'get', // This is the default though, you don't actually need to always mention it
+            success: function(data) {
+                data = $.parseJSON(data.result)
+                $('#modalConsoleOutput').text(data[0].fields.console_output);
+            },
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });
     });
 
     $('.red').on('click', function() {
         $('#modalErrorFields').show();
+        $.ajax({
+            url: '../../individualresult/' + $(this).data('id'),
+            type: 'get', // This is the default though, you don't actually need to always mention it
+            success: function(data) {
+                var result = $.parseJSON(data.result);
+                var errors = $.parseJSON(data.error_list);
+
+                $('#modalConsoleOutput').text(result[0].fields.console_output);
+
+                var errorString = "";
+                var stackString = "";
+                for (i = 0; i < errors.length; i++) {
+                    errorString += errors[i].fields.error_message;
+                    stackString += errors[i].fields.stack_trace;
+                    if (i < errors.length - 1) {
+                        errorString += '<br><br>';
+                        stackString += '<br><br>';
+                    }
+                }
+                $('#modalErrorOutput').html(errorString);
+                $('#modalStackTrace').html(stackString);
+            },
+            failure: function(data) {
+                alert('There was an error');
+            }
+        });
     });
 
     $('#selectTestsBtn').on('click', function() {
