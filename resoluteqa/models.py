@@ -20,6 +20,8 @@ class Project(models.Model):
 class ProjectEnvironment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     environment = models.ForeignKey(Environment, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.project.project_name + ' ' + self.environment.environment_name
 
 class Suite(models.Model):
     project_environment = models.ForeignKey(ProjectEnvironment, on_delete=models.CASCADE)
@@ -37,7 +39,6 @@ class SuiteRun(models.Model):
     failed_tests = models.IntegerField(default=0)
     inconclusive_tests = models.IntegerField(default=0)
     ignored_tests = models.IntegerField(default=0)
-    result_precentage = models.DecimalField(max_digits=5,decimal_places=2,default=Decimal('0.00'))
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(auto_now_add=True)
     total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))

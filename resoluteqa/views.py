@@ -72,6 +72,15 @@ def bugs(request, projenv_id):
     }
     return render(request, 'resoluteqa/bugs.html', context)
 
+def testbugs(request, test_id):
+    if request.method == 'GET':
+        bug_list = Bug.objects.filter(testbug__test__id=test_id)
+        bug_list = serializers.serialize("json", bug_list)
+        data = {
+            "bug_list": bug_list
+        }
+        return JsonResponse(data)
+
 def individualresult(request, test_result_id):
     if request.method == 'GET':
         result = TestResult.objects.filter(id=test_result_id)

@@ -79,7 +79,7 @@
                               <tr>
                                   <td>
                                       <input type="checkbox" class="testCheckbox hidden" data-testid="{{ result.test.id }}">
-                                      <span class="link" data-toggle="modal" data-target="#testModal" data-testname="{{ result.test.test_name }}" data-testclass="{{ result.test.class_name }}" data-namespace="{{ result.test.namespace }}">{{ result.test.test_name }}</span>
+                                      <span class="link" data-toggle="modal" data-target="#testModal" data-testid="{{ result.test.id }}" data-testname="{{ result.test.test_name }}" data-testclass="{{ result.test.class_name }}" data-namespace="{{ result.test.namespace }}">{{ result.test.test_name }}</span>
                                       <img class="hidden" src="{% static 'resoluteqa/image/icons/bug.png' %}" />
                                   </td>
                                   <td>{{ result.test.class_name }}</td>
@@ -124,19 +124,7 @@
                                       <th>Title</th>
                                       <th></th>
                                   </thead>
-                                  <tbody id="modalBugTableBody">
-                                      <tr>
-                                          <td>
-                                              <a href="#">123456</a>
-                                          </td>
-                                          <td>Nav link doesn't work as expected. the menu isn't opening when we want it to.</td>
-                                          <td>
-                                              <button type="button" class="close" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                              </button>
-                                          </td>
-                                      </tr>
-                                  </tbody>
+                                  <tbody id="modalBugTableBody"></tbody>
                               </table>
                           </div>
                           <div id="addSingleBugFormContainer">

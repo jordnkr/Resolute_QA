@@ -114,6 +114,23 @@ jQuery(document).ready(function($) {
         var namespace = button.data('namespace');
         //var bugs = MAKE CALL TO GET BUGS // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 
+        $.ajax({
+            url: '../../test/' + button.data('testid') + '/bugs',
+            type: 'get', // This is the default though, you don't actually need to always mention it
+            success: function(data) {
+                var bugs = $.parseJSON(data.bug_list);
+
+                var bugString = "";
+                for (i = 0; i < bugs.length; i++) {
+                    bugString += '<tr><td><a href="' + bugs[i].fields.url + '">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                }
+                $('#modalBugTableBody').html(bugString);
+            },
+            failure: function(data) {
+                alert('There was an error');
+            }
+        });
+
         // Update the modal's content
         var modal = $(this);
         modal.find('.modal-title').text(testName);
