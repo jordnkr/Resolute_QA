@@ -20,7 +20,8 @@ jQuery(document).ready(function($) {
         }
     });
     $('#suiteSummaryTable').DataTable( {
-        paging: false
+        paging: false,
+        "order": [[ 7, "desc" ]]
     });
 
     $('.summaryRow').each(function() {

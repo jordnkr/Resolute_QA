@@ -39,6 +39,7 @@ class SuiteRun(models.Model):
     failed_tests = models.IntegerField(default=0)
     inconclusive_tests = models.IntegerField(default=0)
     ignored_tests = models.IntegerField(default=0)
+    result_precentage = models.DecimalField(max_digits=5,decimal_places=2,default=Decimal('0.00'))
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(auto_now_add=True)
     total_execution_time = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'))
