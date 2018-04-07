@@ -28,8 +28,8 @@
                           Daily Results
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
-                          {% for suite in suite_list %}
-                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite_name }}</a>
+                          {% for suite in suite_runs %}
+                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite.suite_name }}</a>
                           {% endfor %}
                       </div>
                   </li>

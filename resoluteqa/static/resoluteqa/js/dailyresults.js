@@ -122,7 +122,7 @@ jQuery(document).ready(function($) {
 
                 var bugString = "";
                 for (i = 0; i < bugs.length; i++) {
-                    bugString += '<tr><td><a href="' + bugs[i].fields.url + '">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                    bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
                 }
                 $('#modalBugTableBody').html(bugString);
             },
@@ -143,6 +143,21 @@ jQuery(document).ready(function($) {
         modal.find('#createSingleBugDescriptionInput').val('');
         modal.find('#createSingleBugUrlInput').val('');
     });
+
+    $('#modalBugTableBody').on('click', '.bugDelete', function() {
+        var bugId = $(this).data('bugid');
+        $.ajax({
+            url: '../../bug/' + bugId + '/delete',
+            type: 'DELETE', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            success: function(data) {
+                $('#dynBug' + bugId).remove();
+            },
+            error: function(data) {
+                alert('Got an error dude');
+            }
+        });
+    })
 
     $('#addBugToTestsModal').on('show.bs.modal', function (event) {
 

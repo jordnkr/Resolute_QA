@@ -1,6 +1,7 @@
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.csrf import csrf_exempt
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error
 
 def index(request):
@@ -44,6 +45,7 @@ def summary(request, projenv_id):
     }
     return render(request, 'resoluteqa/summary.html', context)
 
+@csrf_exempt
 def dailyresults(request, suite_run_id):
     request_suite_run = get_object_or_404(SuiteRun, pk=suite_run_id)
     request_suite = Suite.objects.get(id=request_suite_run.suite.id)
@@ -92,3 +94,12 @@ def individualresult(request, test_result_id):
             "error_list": error_list
         }
         return JsonResponse(data)
+
+@csrf_exempt
+def bug_delete(request, bug_id):
+    try:
+        bug = Bug.objects.get(id=bug_id)
+        bug.delete()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'error': True})

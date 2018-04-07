@@ -9,8 +9,18 @@ jQuery(document).ready(function($) {
     });
 
     $('#confirmDeleteBtn').on('click', function() {
-        //submit delete request
-        location.reload(); //This can be on successful return from delete request
+
+        $.ajax({
+            url: '../../bug/' + $('#modalConfirmNumber').data('id') + '/delete',
+            type: 'DELETE', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            success: function(data) {
+                location.reload(); //This can be on successful return from delete request
+            },
+            error: function(data) {
+                alert('Got an error dude');
+            }
+        });
     });
 
     $('#editBugModal').on('show.bs.modal', function (event) {

@@ -13,5 +13,6 @@ urlpatterns = [
     # ex: /resoluteqa/suite/3/bugs
     path('project/<int:projenv_id>/bugs', views.bugs, name='bugs'),
     path('test/<int:test_id>/bugs', views.testbugs, name='testbugs'),
-    path('individualresult/<int:test_result_id>', views.individualresult, name="individualresult")
+    path('individualresult/<int:test_result_id>', views.individualresult, name='individualresult'),
+    path('bug/<int:bug_id>/delete', views.bug_delete, name='bug_delete')
 ]
