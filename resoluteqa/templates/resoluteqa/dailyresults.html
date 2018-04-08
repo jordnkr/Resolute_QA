@@ -28,8 +28,8 @@
                           Daily Results <span class="sr-only">(current)</span>
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
-                          {% for suite in suite_list %}
-                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite_name }}</a>
+                          {% for suite in suite_runs %}
+                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite.suite_name }}</a>
                           {% endfor %}
                       </div>
                   </li>
@@ -55,7 +55,7 @@
                       </div>
                       <div class="col-md-4" align="center">
                           <select class="form-control" style="width:auto;" id="suiteRunsSelect">
-                              {% for run in suite_runs %}
+                              {% for run in historical_suite_runs %}
                                   <option {% if run.id == request_suite_run.id %}selected{% endif %} value="{{ run.id }}">{{ run.start_time|date:"m-d-Y h:i A" }}</option>
                               {% endfor %}
                           </select>

@@ -21,7 +21,7 @@ def summary(request, projenv_id):
 
     suite_runs = []
     for suite in suite_list:
-        run = SuiteRun.objects.filter(suite_id=suite.id).latest('id')
+        run = SuiteRun.objects.filter(suite_id=suite.id).latest('start_time')
         passed_tests += run.passed_tests
         failed_tests += run.failed_tests
         inconclusive_tests += run.inconclusive_tests
@@ -50,27 +50,39 @@ def dailyresults(request, suite_run_id):
     request_suite_run = get_object_or_404(SuiteRun, pk=suite_run_id)
     request_suite = Suite.objects.get(id=request_suite_run.suite.id)
     suite_list = Suite.objects.filter(project_environment_id=request_suite.project_environment.id).order_by('suite_name')
-    suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
+    historical_suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
     test_results = TestResult.objects.filter(suite_run__id=suite_run_id)
+
+    # Used for navbar daily results links
+    suite_runs = []
+    for suite in suite_list:
+        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+
     context = {
         'request_suite_run': request_suite_run,
         'suite': request_suite,
         'suite_list': suite_list,
-        'suite_runs': suite_runs,
-        'test_results': test_results
+        'historical_suite_runs': historical_suite_runs,
+        'test_results': test_results,
+        'suite_runs': suite_runs
     }
     return render(request, 'resoluteqa/dailyresults.html', context)
 
 def bugs(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
     suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
-
     bug_list = Bug.objects.filter(testbug__test__suite__project_environment_id=projenv_id)
+
+    # Used for navbar daily results links
+    suite_runs = []
+    for suite in suite_list:
+        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
 
     context = {
         'projectenvironment': projectenvironment,
         'suite_list': suite_list,
-        'bug_list': bug_list
+        'bug_list': bug_list,
+        'suite_runs': suite_runs
     }
     return render(request, 'resoluteqa/bugs.html', context)
 
