@@ -62,7 +62,7 @@
                                   <td>{{ bug.source_control_id }}</td>
                                   <td>{{ bug.title }}</td>
                                   <td>{{ bug.source_control }}</td>
-                                  <td><a href="{{ bug.url }}">{{ bug.url }}</a></td>
+                                  <td><a href="{{ bug.url }}" target="_blank">{{ bug.url }}</a></td>
                                   <td style="width:110px;">
                                       <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editBugModal" data-bug="{{ bug.source_control_id }}" data-title="{{ bug.title }}" data-source="{{ bug.source_control }}" data-url="{{ bug.url }}" data-id="{{ bug.id }}">Edit</button>
                                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-bug="{{ bug.source_control_id }}" data-id="{{ bug.id }}">Delete</button>
@@ -103,7 +103,7 @@
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header justify-content-center">
-                      <h5 class="modal-title" id="editBugModalLabel">Edit Bug <span id="modalEditTitle"></span></h5>
+                      <h5 class="modal-title" id="editBugModalLabel">Edit Bug <span id="modalEditBugId"></span></h5>
                   </div>
                   <div class="modal-body">
                       <label for="editBugSourceControlIdInput"><b>Source Control ID:</b></label>

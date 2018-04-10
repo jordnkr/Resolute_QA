@@ -4,15 +4,31 @@ jQuery(document).ready(function($) {
     });
 
     $('#submitEditBtn').on('click', function() {
-        //submit bug update request
-        location.reload(); //This can be on successful return from update request
+        var jsonData = {
+            'source_control_id': $('#editBugSourceControlIdInput').val(),
+            'title': $('#editBugTitleInput').val(),
+            'source_control': $('#editBugSourceControlInput').val(),
+            'url': $('#editBugUrlInput').val()
+        };
+
+        $.ajax({
+            url: '../../bug/' + $('#modalEditBugId').data('id') + '/update',
+            type: 'POST', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            data: jsonData,
+            success: function(data) {
+                location.reload(); //This can be on successful return from delete request
+            },
+            error: function(data) {
+                alert('Got an error dude');
+            }
+        });
     });
 
     $('#confirmDeleteBtn').on('click', function() {
-
         $.ajax({
             url: '../../bug/' + $('#modalConfirmNumber').data('id') + '/delete',
-            type: 'DELETE', // This is the default though, you don't actually need to always mention it
+            type: 'POST', // This is the default though, you don't actually need to always mention it
             dataType:  'json',
             success: function(data) {
                 location.reload(); //This can be on successful return from delete request
@@ -33,8 +49,8 @@ jQuery(document).ready(function($) {
 
         // Update the modal's content
         var modal = $(this);
-        modal.find('#modalEditTitle').text(bugSourceControlId);
-        modal.find('#modalEditTitle').attr('data-id', bugId);
+        modal.find('#modalEditBugId').text(bugSourceControlId);
+        modal.find('#modalEditBugId').attr('data-id', bugId);
         modal.find('#editBugSourceControlIdInput').val(bugSourceControlId);
         modal.find('#editBugTitleInput').val(bugTitle);
         modal.find('#editBugSourceControlInput').val(bugSource);

@@ -2,7 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
-from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error
+from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
 
 def index(request):
     project_list = Project.objects.all()
@@ -108,10 +108,47 @@ def individualresult(request, test_result_id):
         return JsonResponse(data)
 
 @csrf_exempt
+def bug_create(request):
+    try:
+        if request.method == "POST":
+            bug = Bug.objects.create(source_control_id=request.POST["source_control_id"], source_control=request.POST["source_control"], title=request.POST["title"], url=request.POST["url"])
+            #bug.save()
+
+            myTest = Test.objects.get(id=request.POST["test_id"])
+
+            #myTest.bugs.add(bug)
+            testBug = TestBug(bug=bug, test=myTest)
+            testBug.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
+    except Exception as e:
+        return JsonResponse({'error': True})
+
+@csrf_exempt
+def bug_update(request, bug_id):
+    try:
+        if request.method == "POST":
+            bug = Bug.objects.get(id=bug_id)
+            bug.source_control_id = request.POST["source_control_id"]
+            bug.title = request.POST["title"]
+            bug.source_control = request.POST["source_control"]
+            bug.url = request.POST["url"]
+            bug.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
+    except Exception as e:
+        return JsonResponse({'error': True})
+
+@csrf_exempt
 def bug_delete(request, bug_id):
     try:
-        bug = Bug.objects.get(id=bug_id)
-        bug.delete()
-        return JsonResponse({'success': True})
+        if request.method == "POST":
+            bug = Bug.objects.get(id=bug_id)
+            bug.delete()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
     except Exception as e:
         return JsonResponse({'error': True})

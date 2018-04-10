@@ -102,6 +102,46 @@ jQuery(document).ready(function($) {
         $('#testBugsTableContainer').show();
     });
 
+    $('#testAddBugSubmitBtn').on('click', function() {
+        var jsonData = {
+            'test_id': $('#testModalLabel').attr('testid'),
+            'source_control_id': $('#createSingleBugSourceControlIdInput').val(),
+            'source_control': $('#createSingleBugSourceControlInput').val(),
+            'title': $('#createSingleBugTitleInput').val(),
+            'url': $('#createSingleBugUrlInput').val()
+        }
+
+        $.ajax({
+            url: '../../bug/create',
+            type: 'POST', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            data: jsonData,
+            success: function(data) {
+                // Display bug icon if it's not already displayed
+
+                $.ajax({
+                    url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
+                    type: 'get', // This is the default though, you don't actually need to always mention it
+                    success: function(data) {
+                        var bugs = $.parseJSON(data.bug_list);
+
+                        var bugString = "";
+                        for (i = 0; i < bugs.length; i++) {
+                            bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                        }
+                        $('#modalBugTableBody').html(bugString);
+                    },
+                    failure: function(data) {
+                        alert('There was an error');
+                    }
+                });
+            },
+            error: function(data) {
+                alert('Got an error dude');
+            }
+        });
+    });
+
     $('#testModal').on('show.bs.modal', function (event) {
         $('#testBugDecisionBtnContainer').hide();
         $('#addSingleBugFormContainer').hide();
@@ -122,7 +162,7 @@ jQuery(document).ready(function($) {
 
                 var bugString = "";
                 for (i = 0; i < bugs.length; i++) {
-                    bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                    bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
                 }
                 $('#modalBugTableBody').html(bugString);
             },
@@ -134,6 +174,7 @@ jQuery(document).ready(function($) {
         // Update the modal's content
         var modal = $(this);
         modal.find('.modal-title').text(testName);
+        modal.find('#testModalLabel').attr('testid', button.data('testid'));
         modal.find('#modalTestClass').text(testClass);
         modal.find('#modalTestNamespace').text(namespace);
 
@@ -148,7 +189,7 @@ jQuery(document).ready(function($) {
         var bugId = $(this).data('bugid');
         $.ajax({
             url: '../../bug/' + bugId + '/delete',
-            type: 'DELETE', // This is the default though, you don't actually need to always mention it
+            type: 'POST', // This is the default though, you don't actually need to always mention it
             dataType:  'json',
             success: function(data) {
                 $('#dynBug' + bugId).remove();
