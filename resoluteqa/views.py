@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
+import json
 
 def index(request):
     project_list = Project.objects.all()
@@ -52,6 +53,7 @@ def dailyresults(request, suite_run_id):
     suite_list = Suite.objects.filter(project_environment_id=request_suite.project_environment.id).order_by('suite_name')
     historical_suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
     test_results = TestResult.objects.filter(suite_run__id=suite_run_id)
+    bug_list = Bug.objects.filter(test__suite__project_environment_id=request_suite.project_environment.id)
 
     # Used for navbar daily results links
     suite_runs = []
@@ -64,14 +66,15 @@ def dailyresults(request, suite_run_id):
         'suite_list': suite_list,
         'historical_suite_runs': historical_suite_runs,
         'test_results': test_results,
-        'suite_runs': suite_runs
+        'suite_runs': suite_runs,
+        'bug_list': bug_list
     }
     return render(request, 'resoluteqa/dailyresults.html', context)
 
 def bugs(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
     suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
-    bug_list = Bug.objects.filter(testbug__test__suite__project_environment_id=projenv_id)
+    bug_list = Bug.objects.filter(test__suite__project_environment_id=projenv_id)
 
     # Used for navbar daily results links
     suite_runs = []
@@ -88,7 +91,9 @@ def bugs(request, projenv_id):
 
 def testbugs(request, test_id):
     if request.method == 'GET':
-        bug_list = Bug.objects.filter(testbug__test__id=test_id)
+        test = Test.objects.get(id=test_id)
+        #bug_list = Bug.objects.filter(testbug__test__id=test_id)
+        bug_list = test.bugs.all()
         bug_list = serializers.serialize("json", bug_list)
         data = {
             "bug_list": bug_list
@@ -112,13 +117,24 @@ def bug_create(request):
     try:
         if request.method == "POST":
             bug = Bug.objects.create(source_control_id=request.POST["source_control_id"], source_control=request.POST["source_control"], title=request.POST["title"], url=request.POST["url"])
-            #bug.save()
-
             myTest = Test.objects.get(id=request.POST["test_id"])
+            myTest.bugs.add(bug)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
+    except Exception as e:
+        return JsonResponse({'error': True})
 
-            #myTest.bugs.add(bug)
-            testBug = TestBug(bug=bug, test=myTest)
-            testBug.save()
+@csrf_exempt
+def bug_add(request):
+    try:
+        if request.method == "POST":
+            data = request.body
+            bugLinks = json.loads(data)
+            for bugLink in bugLinks['links']:
+                bug = Bug.objects.get(id=bugLink["bug_id"])
+                test = Test.objects.get(id=bugLink["test_id"])
+                test.bugs.add(bug)
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'error': True})

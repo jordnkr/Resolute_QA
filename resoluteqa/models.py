@@ -57,9 +57,9 @@ class Bug(models.Model):
     insert_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.source_control + ' - ' + str(self.source_control_id)
-        
+
 class Test(models.Model):
-    bugs = models.ManyToManyField(Bug, through='TestBug')
+    bugs = models.ManyToManyField(Bug)
     suite = models.ForeignKey(Suite, on_delete=models.CASCADE)
     test_name = models.CharField(max_length=50)
     test_category = models.CharField(max_length=50, blank=True)
@@ -90,7 +90,3 @@ class Error(models.Model):
     stack_trace = models.TextField()
     updated_on = models.DateTimeField(auto_now=True)
     insert_date = models.DateTimeField(auto_now_add=True)
-
-class TestBug(models.Model):
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)

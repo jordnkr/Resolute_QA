@@ -111,11 +111,8 @@
                       <div class="mt-4">
                           <h3 class="inline">Bugs</h3>
                           <div class="inline" id="testAddBugBtnContainer">
-                              <button type="button" id="testAddSingleBugBtn" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Bug</button>
-                          </div>
-                          <div class="inline" id="testBugDecisionBtnContainer">
-                              <button type="button" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugSubmitBtn">Submit</button>
-                              <button type="button" class="btn btn-outline-dark btn-sm" style="margin:0px 0px 10px 10px;" id="testAddBugCancelBtn">Cancel</button>
+                              <button type="button" id="testPlusNewBugBtn" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ New Bug</button>
+                              <button type="button" id="testPlusExistingBugBtn" class="btn btn-dark btn-sm" style="margin:0px 0px 10px 10px;">+ Existing Bug</button>
                           </div>
                           <div id="testBugsTableContainer">
                               <table id="modalBugTable" class="table text-center">
@@ -127,7 +124,23 @@
                                   <tbody id="modalBugTableBody"></tbody>
                               </table>
                           </div>
-                          <div id="addSingleBugFormContainer">
+                          <div id="addExistingSingleBugFormContainer" class="mt-4 addSingleBugModalContainer">
+                              <div class="row">
+                                  <div class="col-12" align="center">
+                                      <select class="form-control" style="width:auto;" id="existingBugSelect">
+                                          {% for bug in bug_list %}
+                                          <option value="{{ bug.id }}">{{ bug.source_control }} - {{ bug.source_control_id }}</option>
+                                          {% endfor %}
+                                      </select>
+                                      <div id="testExistingBugDecisionBtnContainer" class="mt-3">
+                                          <button type="button" class="btn btn-dark btn-sm addSingleBugModalBtn" style="margin-right: 5px;"id="testAddExistingBugSubmitBtn">Submit</button>
+                                          <button type="button" class="btn btn-outline-dark btn-sm addSingleBugModalBtn" style="margin-left: 5px;" id="testAddExistingBugCancelBtn">Cancel</button>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                          <div id="addSingleBugFormContainer" class="addSingleBugModalContainer">
                               <label for="createSingleBugSourceControlIdInput"><b>Source Control ID:</b></label>
                               <input class="form-control" type="text" id="createSingleBugSourceControlIdInput" value=""><br>
                               <label for="createSingleBugTitleInput"><b>Title:</b></label>
@@ -139,6 +152,10 @@
                               </select><br>
                               <label for="createSingleBugUrlInput"><b>URL:</b></label>
                               <input class="form-control" type="text" id="createSingleBugUrlInput" value="">
+                              <div class="mt-3 text-center" id="testBugDecisionBtnContainer">
+                                  <button type="button" class="btn btn-dark btn-sm addSingleBugModalBtn" style="margin:0px 0px 10px 10px;" id="testAddBugSubmitBtn">Submit</button>
+                                  <button type="button" class="btn btn-outline-dark btn-sm addSingleBugModalBtn" style="margin:0px 0px 10px 10px;" id="testAddBugCancelBtn">Cancel</button>
+                              </div>
                           </div>
                       </div>
                   </div>

@@ -88,16 +88,20 @@ jQuery(document).ready(function($) {
         // submit request with selected checkboxes
     });
 
-    $('#testAddSingleBugBtn').on('click', function() {
+    $('#testPlusNewBugBtn').on('click', function() {
         $('#testAddBugBtnContainer').hide();
         $('#testBugsTableContainer').hide();
-        $('#testBugDecisionBtnContainer').show();
         $('#addSingleBugFormContainer').show();
     });
 
-    $('#testBugDecisionBtnContainer button').on('click', function() {
-        $('#testBugDecisionBtnContainer').hide();
-        $('#addSingleBugFormContainer').hide();
+    $('#testPlusExistingBugBtn').on('click', function() {
+        $('#testAddBugBtnContainer').hide();
+        $('#testBugsTableContainer').hide();
+        $('#addExistingSingleBugFormContainer').show();
+    });
+
+    $('.addSingleBugModalBtn').on('click', function() {
+        $('.addSingleBugModalContainer').hide();
         $('#testAddBugBtnContainer').show();
         $('#testBugsTableContainer').show();
     });
@@ -142,9 +146,44 @@ jQuery(document).ready(function($) {
         });
     });
 
+    $('#testAddExistingBugSubmitBtn').on('click', function() {
+        var jsonData = {'links':[]}
+
+        jsonData.links.push({'test_id': $('#testModalLabel').attr('testid'), 'bug_id': $('#existingBugSelect').find(":selected").attr('value')});
+
+        $.ajax({
+            url: '../../bug/add',
+            type: 'POST', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            data: JSON.stringify(jsonData),
+            success: function(data) {
+                // Display bug icon if it's not already displayed
+
+                $.ajax({
+                    url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
+                    type: 'get', // This is the default though, you don't actually need to always mention it
+                    success: function(data) {
+                        var bugs = $.parseJSON(data.bug_list);
+
+                        var bugString = "";
+                        for (i = 0; i < bugs.length; i++) {
+                            bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                        }
+                        $('#modalBugTableBody').html(bugString);
+                    },
+                    failure: function(data) {
+                        alert('There was an error');
+                    }
+                });
+            },
+            error: function(data) {
+                alert('There was an error');
+            }
+        });
+    });
+
     $('#testModal').on('show.bs.modal', function (event) {
-        $('#testBugDecisionBtnContainer').hide();
-        $('#addSingleBugFormContainer').hide();
+        $('.addSingleBugModalContainer').hide();
         $('#testAddBugBtnContainer').show();
         $('#testBugsTableContainer').show();
 
@@ -186,8 +225,9 @@ jQuery(document).ready(function($) {
     });
 
     $('#modalBugTableBody').on('click', '.bugDelete', function() {
+        // TODO: fix this so that it just removes the link from the test, rather than deletes the entire bug
         var bugId = $(this).data('bugid');
-        $.ajax({
+        /*$.ajax({
             url: '../../bug/' + bugId + '/delete',
             type: 'POST', // This is the default though, you don't actually need to always mention it
             dataType:  'json',
@@ -197,7 +237,7 @@ jQuery(document).ready(function($) {
             error: function(data) {
                 alert('Got an error dude');
             }
-        });
+        });*/
     })
 
     $('#addBugToTestsModal').on('show.bs.modal', function (event) {
