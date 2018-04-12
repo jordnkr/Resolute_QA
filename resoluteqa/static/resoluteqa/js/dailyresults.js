@@ -89,6 +89,13 @@ jQuery(document).ready(function($) {
     });
 
     $('#testPlusNewBugBtn').on('click', function() {
+        // Reset new bug form inputs
+        $('#createSingleBugSourceControlIdInput').val('');
+        $("#createSingleBugSourceControlInput")[0].selectedIndex = 0;
+        $('#createSingleBugTitleInput').val('');
+        $('#createSingleBugUrlInput').val('');
+
+        // Hide new bugs buttons and bugs table. Show New bug form
         $('#testAddBugBtnContainer').hide();
         $('#testBugsTableContainer').hide();
         $('#addSingleBugFormContainer').show();
@@ -228,19 +235,18 @@ jQuery(document).ready(function($) {
     });
 
     $('#modalBugTableBody').on('click', '.bugDelete', function() {
-        // TODO: fix this so that it just removes the link from the test, rather than deletes the entire bug
         var bugId = $(this).data('bugid');
-        /*$.ajax({
-            url: '../../bug/' + bugId + '/delete',
+        $.ajax({
+            url: '../../bug/' + bugId + '/remove/' + $('#testModalLabel').attr('testid'),
             type: 'POST', // This is the default though, you don't actually need to always mention it
             dataType:  'json',
             success: function(data) {
                 $('#dynBug' + bugId).remove();
             },
             error: function(data) {
-                alert('Got an error dude');
+                alert('There was an error');
             }
-        });*/
+        });
     })
 
     $('#addBugToTestsModal').on('show.bs.modal', function (event) {

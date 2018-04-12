@@ -128,22 +128,6 @@ def bug_create(request):
         return JsonResponse({'error': True})
 
 @csrf_exempt
-def bug_add(request):
-    try:
-        if request.method == "POST":
-            bug_id = request.POST["bug_id"]
-            test_ids = request.POST.getlist("test_ids[]")
-            for test_id in test_ids:
-                bug = Bug.objects.get(id=bug_id)
-                test = Test.objects.get(id=test_id)
-                test.bugs.add(bug)
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'error': True})
-    except Exception as e:
-        return JsonResponse({'error': True})
-
-@csrf_exempt
 def bug_update(request, bug_id):
     try:
         if request.method == "POST":
@@ -165,6 +149,35 @@ def bug_delete(request, bug_id):
         if request.method == "POST":
             bug = Bug.objects.get(id=bug_id)
             bug.delete()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
+    except Exception as e:
+        return JsonResponse({'error': True})
+
+@csrf_exempt
+def bug_add(request):
+    try:
+        if request.method == "POST":
+            bug_id = request.POST["bug_id"]
+            test_ids = request.POST.getlist("test_ids[]")
+            for test_id in test_ids:
+                bug = Bug.objects.get(id=bug_id)
+                test = Test.objects.get(id=test_id)
+                test.bugs.add(bug)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'error': True})
+    except Exception as e:
+        return JsonResponse({'error': True})
+
+@csrf_exempt
+def bug_remove(request, bug_id, test_id):
+    try:
+        if request.method == "POST":
+            bug = Bug.objects.get(id=bug_id)
+            test = Test.objects.get(id=test_id)
+            test.bugs.remove(bug)
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'error': True})
