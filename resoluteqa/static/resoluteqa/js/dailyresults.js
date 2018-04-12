@@ -108,7 +108,7 @@ jQuery(document).ready(function($) {
 
     $('#testAddBugSubmitBtn').on('click', function() {
         var jsonData = {
-            'test_id': $('#testModalLabel').attr('testid'),
+            'test_ids': [ $('#testModalLabel').attr('testid')],
             'source_control_id': $('#createSingleBugSourceControlIdInput').val(),
             'source_control': $('#createSingleBugSourceControlInput').val(),
             'title': $('#createSingleBugTitleInput').val(),
@@ -147,15 +147,18 @@ jQuery(document).ready(function($) {
     });
 
     $('#testAddExistingBugSubmitBtn').on('click', function() {
-        var jsonData = {'links':[]}
-
-        jsonData.links.push({'test_id': $('#testModalLabel').attr('testid'), 'bug_id': $('#existingBugSelect').find(":selected").attr('value')});
+        var postData = {
+            'bug_id': $('#existingBugSelect').find(":selected").attr('value'),
+            'test_ids':[
+                $('#testModalLabel').attr('testid')
+            ]
+        }
 
         $.ajax({
             url: '../../bug/add',
             type: 'POST', // This is the default though, you don't actually need to always mention it
             dataType:  'json',
-            data: JSON.stringify(jsonData),
+            data: postData,
             success: function(data) {
                 // Display bug icon if it's not already displayed
 

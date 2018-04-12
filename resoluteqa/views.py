@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
-import json
 
 def index(request):
     project_list = Project.objects.all()
@@ -117,8 +116,11 @@ def bug_create(request):
     try:
         if request.method == "POST":
             bug = Bug.objects.create(source_control_id=request.POST["source_control_id"], source_control=request.POST["source_control"], title=request.POST["title"], url=request.POST["url"])
-            myTest = Test.objects.get(id=request.POST["test_id"])
-            myTest.bugs.add(bug)
+            test_ids = request.POST.getlist("test_ids[]")
+            for test_id in test_ids:
+                test = Test.objects.get(id=test_id)
+                test.bugs.add(bug)
+                print(test_id)
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'error': True})
@@ -129,11 +131,11 @@ def bug_create(request):
 def bug_add(request):
     try:
         if request.method == "POST":
-            data = request.body
-            bugLinks = json.loads(data)
-            for bugLink in bugLinks['links']:
-                bug = Bug.objects.get(id=bugLink["bug_id"])
-                test = Test.objects.get(id=bugLink["test_id"])
+            bug_id = request.POST["bug_id"]
+            test_ids = request.POST.getlist("test_ids[]")
+            for test_id in test_ids:
+                bug = Bug.objects.get(id=bug_id)
+                test = Test.objects.get(id=test_id)
                 test.bugs.add(bug)
             return JsonResponse({'success': True})
         else:
