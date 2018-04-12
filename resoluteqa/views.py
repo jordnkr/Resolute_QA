@@ -73,7 +73,7 @@ def dailyresults(request, suite_run_id):
 def bugs(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
     suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
-    bug_list = Bug.objects.filter(test__suite__project_environment_id=projenv_id)
+    bug_list = Bug.objects.filter(test__suite__project_environment_id=projenv_id).distinct()
 
     # Used for navbar daily results links
     suite_runs = []
