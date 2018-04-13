@@ -52,7 +52,7 @@ def dailyresults(request, suite_run_id):
     suite_list = Suite.objects.filter(project_environment_id=request_suite.project_environment.id).order_by('suite_name')
     historical_suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
     test_results = TestResult.objects.filter(suite_run__id=suite_run_id)
-    bug_list = Bug.objects.filter(test__suite__project_environment_id=request_suite.project_environment.id)
+    bug_list = Bug.objects.filter(test__suite__project_environment_id=request_suite.project_environment.id).distinct()
 
     # Used for navbar daily results links
     suite_runs = []
