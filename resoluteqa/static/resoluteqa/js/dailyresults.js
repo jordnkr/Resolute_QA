@@ -65,27 +65,65 @@ jQuery(document).ready(function($) {
         $('#addBugUrlInput').val('');
     });
 
-    $('#addBugsCancelBtn').on('click', function() {
+    $('#addBugsCancelBtn, .submitMultipleBtn').on('click', function() {
         $('.testCheckbox').hide();
         $('#addBugsBtnContainer').hide();
         $('#selectTestsBtnContainer').show();
     });
 
-    $('#submitAddBugBtn').on('click', function() {
-        var selected = [];
+    $('#confirmCreateBugMultipleTests').on('click', function() {
+        var selectedTestIds = [];
 
-        //fix this
-        $('input:checked').each(function() {
-            selected.push($(this).data('testid'));
+        $('.testCheckbox:checkbox:checked').each(function() {
+            selectedTestIds.push($(this).data('testid'));
         });
 
-        $('#addBugSourceControlIdInput').val();
-        $('#addBugTitleInput').val();
-        $('#addBugDescriptionInput').val();
-        $('#addBugSourceControlInput').val();
-        $('#addBugUrlInput').val();
+        var jsonData = {
+            'test_ids': selectedTestIds,
+            'source_control_id': $('#createBugsSourceControlIdInput').val(),
+            'source_control': $('#createBugSourceControlInput').val(),
+            'title': $('#createBugsTitleInput').val(),
+            'url': $('#createBugsUrlInput').val()
+        }
 
-        // submit request with selected checkboxes
+        $.ajax({
+            url: '../../bug/create',
+            type: 'POST', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            data: jsonData,
+            success: function(data) {
+                // TODO: Display bug icon if it's not already displayed
+            },
+            error: function(data) {
+                alert('Got an error dude');
+            }
+        });
+    });
+
+    $('#confirmAddExistingBugMultipleTests').on('click', function() {
+        var selectedTestIds = [];
+
+        $('.testCheckbox:checkbox:checked').each(function() {
+            selectedTestIds.push($(this).data('testid'));
+        });
+
+        var postData = {
+            'bug_id': $('#existingBugSelectMultiple').find(":selected").attr('value'),
+            'test_ids': selectedTestIds
+        }
+
+        $.ajax({
+            url: '../../bug/add',
+            type: 'POST', // This is the default though, you don't actually need to always mention it
+            dataType:  'json',
+            data: postData,
+            success: function(data) {
+                //TODO: Display bug icon if it's not already displayed
+            },
+            error: function(data) {
+                alert('There was an error');
+            }
+        });
     });
 
     $('#testPlusNewBugBtn').on('click', function() {

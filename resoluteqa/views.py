@@ -120,7 +120,6 @@ def bug_create(request):
             for test_id in test_ids:
                 test = Test.objects.get(id=test_id)
                 test.bugs.add(bug)
-                print(test_id)
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'error': True})
