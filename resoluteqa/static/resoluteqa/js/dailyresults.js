@@ -304,10 +304,16 @@ jQuery(document).ready(function($) {
         var bugId = $(this).data('bugid');
         $.ajax({
             url: '../../bug/' + bugId + '/remove/' + $('#testModalLabel').attr('testid'),
-            type: 'POST', // This is the default though, you don't actually need to always mention it
+            type: 'POST',
             dataType:  'json',
             success: function(data) {
-                $('#dynBug' + bugId).remove();
+                if (!data.error) {
+                    $('#dynBug' + bugId).remove();
+                    if (data.bugCount == 0) {
+                        var testId = $('#testModalLabel').attr('testid');
+                        $('#bugIconTest' + testId).addClass('hidden');
+                    }
+                }
             },
             error: function(data) {
                 alert('There was an error');

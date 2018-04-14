@@ -177,7 +177,7 @@ def bug_remove(request, bug_id, test_id):
             bug = Bug.objects.get(id=bug_id)
             test = Test.objects.get(id=test_id)
             test.bugs.remove(bug)
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': True, 'bugCount':test.bugs.count()})
         else:
             return JsonResponse({'error': True})
     except Exception as e:
