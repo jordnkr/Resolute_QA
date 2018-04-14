@@ -69,6 +69,7 @@
                   <table id="resultsTable" class="table no-border grayBorder text-center">
                       <thead>
                           <tr>
+                              <th>Bug</th>
                               <th>Test Name</th>
                               <th>Class</th>
                               <th>Time (seconds)</th>
@@ -78,10 +79,12 @@
                       <tbody>
                           {% for result in test_results %}
                               <tr>
+                                  <td class="text-center">
+                                      <img id="bugIconTest{{ result.test.id }}" class="{% if not result.test.bugs.all %}hidden{% endif %}" src="{% static 'resoluteqa/image/icons/bug.png' %}" />
+                                  </td>
                                   <td>
                                       <input type="checkbox" class="testCheckbox hidden" data-testid="{{ result.test.id }}">
                                       <span class="link" data-toggle="modal" data-target="#testModal" data-testid="{{ result.test.id }}" data-testname="{{ result.test.test_name }}" data-testclass="{{ result.test.class_name }}" data-namespace="{{ result.test.namespace }}">{{ result.test.test_name }}</span>
-                                      <img class="hidden" src="{% static 'resoluteqa/image/icons/bug.png' %}" />
                                   </td>
                                   <td>{{ result.test.class_name }}</td>
                                   <td>{{ result.total_execution_time }}  </td>

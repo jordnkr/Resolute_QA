@@ -1,6 +1,14 @@
 jQuery(document).ready(function($) {
     $('#resultsTable').DataTable( {
-        paging: false
+        paging: false,
+        columnDefs: [
+            {
+                "targets": 0,
+                "width": "1%",
+                "orderable": false
+            }
+        ],
+        "order": [[ 1, "asc" ]]
     });
 
     $('#suiteRunsSelect').change(function() {
@@ -65,6 +73,10 @@ jQuery(document).ready(function($) {
         $('#addBugUrlInput').val('');
     });
 
+    $('#addBugsCancelBtn').on('click', function() {
+        $('.testCheckbox').prop('checked', false);
+    });
+
     $('#addBugsCancelBtn, .submitMultipleBtn').on('click', function() {
         $('.testCheckbox').hide();
         $('#addBugsBtnContainer').hide();
@@ -92,7 +104,12 @@ jQuery(document).ready(function($) {
             dataType:  'json',
             data: jsonData,
             success: function(data) {
-                // TODO: Display bug icon if it's not already displayed
+                if (!data.error) {
+                    selectedTestIds.forEach(function(testId) {
+                        $('#bugIconTest' + testId).removeClass('hidden');
+                    });
+                    $('.testCheckbox').prop('checked', false);
+                }
             },
             error: function(data) {
                 alert('Got an error dude');
@@ -118,7 +135,12 @@ jQuery(document).ready(function($) {
             dataType:  'json',
             data: postData,
             success: function(data) {
-                //TODO: Display bug icon if it's not already displayed
+                if (!data.error) {
+                    selectedTestIds.forEach(function(testId) {
+                        $('#bugIconTest' + testId).removeClass('hidden');
+                    });
+                    $('.testCheckbox').prop('checked', false);
+                }
             },
             error: function(data) {
                 alert('There was an error');
@@ -152,8 +174,10 @@ jQuery(document).ready(function($) {
     });
 
     $('#testAddBugSubmitBtn').on('click', function() {
+        var testId = $('#testModalLabel').attr('testid');
+
         var jsonData = {
-            'test_ids': [ $('#testModalLabel').attr('testid')],
+            'test_ids': [testId],
             'source_control_id': $('#createSingleBugSourceControlIdInput').val(),
             'source_control': $('#createSingleBugSourceControlInput').val(),
             'title': $('#createSingleBugTitleInput').val(),
@@ -166,24 +190,26 @@ jQuery(document).ready(function($) {
             dataType:  'json',
             data: jsonData,
             success: function(data) {
-                // Display bug icon if it's not already displayed
+                if (!data.error) {
+                    $('#bugIconTest' + testId).removeClass('hidden');
 
-                $.ajax({
-                    url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
-                    type: 'get', // This is the default though, you don't actually need to always mention it
-                    success: function(data) {
-                        var bugs = $.parseJSON(data.bug_list);
+                    $.ajax({
+                        url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
+                        type: 'get', // This is the default though, you don't actually need to always mention it
+                        success: function(data) {
+                            var bugs = $.parseJSON(data.bug_list);
 
-                        var bugString = "";
-                        for (i = 0; i < bugs.length; i++) {
-                            bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                            var bugString = "";
+                            for (i = 0; i < bugs.length; i++) {
+                                bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                            }
+                            $('#modalBugTableBody').html(bugString);
+                        },
+                        failure: function(data) {
+                            alert('There was an error');
                         }
-                        $('#modalBugTableBody').html(bugString);
-                    },
-                    failure: function(data) {
-                        alert('There was an error');
-                    }
-                });
+                    });
+                }
             },
             error: function(data) {
                 alert('Got an error dude');
@@ -192,11 +218,11 @@ jQuery(document).ready(function($) {
     });
 
     $('#testAddExistingBugSubmitBtn').on('click', function() {
+        var testId = $('#testModalLabel').attr('testid');
+
         var postData = {
             'bug_id': $('#existingBugSelect').find(":selected").attr('value'),
-            'test_ids':[
-                $('#testModalLabel').attr('testid')
-            ]
+            'test_ids':[testId]
         }
 
         $.ajax({
@@ -205,24 +231,26 @@ jQuery(document).ready(function($) {
             dataType:  'json',
             data: postData,
             success: function(data) {
-                // Display bug icon if it's not already displayed
+                if (!data.error) {
+                    $('#bugIconTest' + testId).removeClass('hidden');
 
-                $.ajax({
-                    url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
-                    type: 'get', // This is the default though, you don't actually need to always mention it
-                    success: function(data) {
-                        var bugs = $.parseJSON(data.bug_list);
+                    $.ajax({
+                        url: '../../test/' + $('#testModalLabel').attr('testid') + '/bugs',
+                        type: 'get', // This is the default though, you don't actually need to always mention it
+                        success: function(data) {
+                            var bugs = $.parseJSON(data.bug_list);
 
-                        var bugString = "";
-                        for (i = 0; i < bugs.length; i++) {
-                            bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                            var bugString = "";
+                            for (i = 0; i < bugs.length; i++) {
+                                bugString += '<tr id="dynBug' + bugs[i].pk + '"><td><a href="' + bugs[i].fields.url + '" target="_blank">' + bugs[i].fields.source_control_id + '</a></td><td>' + bugs[i].fields.title + '</td><td><button type="button" class="close bugDelete" data-bugid="' + bugs[i].pk + '"><span aria-hidden="true">&times;</span></button></td></tr>'
+                            }
+                            $('#modalBugTableBody').html(bugString);
+                        },
+                        failure: function(data) {
+                            alert('There was an error');
                         }
-                        $('#modalBugTableBody').html(bugString);
-                    },
-                    failure: function(data) {
-                        alert('There was an error');
-                    }
-                });
+                    });
+                }
             },
             error: function(data) {
                 alert('There was an error');
