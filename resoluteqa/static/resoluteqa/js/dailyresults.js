@@ -164,6 +164,27 @@ jQuery(document).ready(function($) {
     $('#testPlusExistingBugBtn').on('click', function() {
         $('#testAddBugBtnContainer').hide();
         $('#testBugsTableContainer').hide();
+
+        // Get existing bugs and add to select list
+        $.ajax({
+            url: '../../project/' + $('#bugsNavLink').data('projenvid') + '/allbugs',
+            type: 'GET',
+            dataType:  'json',
+            success: function(data) {
+                if (!data.error) {
+                    var bugs = $.parseJSON(data.bug_list);
+                    var bugString = "";
+                    for (i = 0; i < bugs.length; i++) {
+                        bugString += '<option value="' + bugs[i].pk + '">' + bugs[i].fields.source_control + ' - ' + bugs[i].fields.source_control_id + '</option>';
+                    }
+                    $('#existingBugSelect').html(bugString);
+                }
+            },
+            error: function(data) {
+                alert('There was an error');
+            }
+        });
+
         $('#addExistingSingleBugFormContainer').show();
     });
 
@@ -329,6 +350,28 @@ jQuery(document).ready(function($) {
         modal.find('#createBugsTitleInput').val('');
         modal.find('#createBugsDescriptionInput').val('');
         modal.find('#createBugsUrlInput').val('');
+    });
+
+    $('#addExistingBugToTestsModal').on('show.bs.modal', function(event) {
+        var modal = $(this);
+        $.ajax({
+            url: '../../project/' + $('#bugsNavLink').data('projenvid') + '/allbugs',
+            type: 'GET',
+            dataType:  'json',
+            success: function(data) {
+                if (!data.error) {
+                    var bugs = $.parseJSON(data.bug_list);
+                    var bugString = "";
+                    for (i = 0; i < bugs.length; i++) {
+                        bugString += '<option value="' + bugs[i].pk + '">' + bugs[i].fields.source_control + ' - ' + bugs[i].fields.source_control_id + '</option>';
+                    }
+                    $('#existingBugSelectMultiple').html(bugString);
+                }
+            },
+            error: function(data) {
+                alert('There was an error');
+            }
+        });
     });
 
     $('#resultModal').on('show.bs.modal', function (event) {

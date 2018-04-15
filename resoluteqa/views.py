@@ -99,6 +99,15 @@ def testbugs(request, test_id):
         }
         return JsonResponse(data)
 
+def projectbugs(request, projenv_id):
+    if request.method == 'GET':
+        bug_list = Bug.objects.filter(test__suite__project_environment_id=projenv_id).distinct().order_by('source_control_id')
+        bug_list = serializers.serialize("json", bug_list)
+        data = {
+            "bug_list": bug_list
+        }
+        return JsonResponse(data)
+
 def individualresult(request, test_result_id):
     if request.method == 'GET':
         result = TestResult.objects.filter(id=test_result_id)

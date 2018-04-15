@@ -34,7 +34,7 @@
                       </div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'resoluteqa:bugs' suite.project_environment.id %}">Bugs</a>
+                      <a id="bugsNavLink" class="nav-link" href="{% url 'resoluteqa:bugs' suite.project_environment.id %}" data-projenvid="{{ suite.project_environment.id }}">Bugs</a>
                   </li>
               </ul>
           </div>
@@ -128,14 +128,10 @@
                                   <tbody id="modalBugTableBody"></tbody>
                               </table>
                           </div>
-                          <div id="addExistingSingleBugFormContainer" class="mt-4 addSingleBugModalContainer">
+                          <div id="addExistingSingleBugFormContainer" class="addSingleBugModalContainer">
                               <div class="row">
                                   <div class="col-12" align="center">
-                                      <select class="form-control" style="width:auto;" id="existingBugSelect">
-                                          {% for bug in bug_list %}
-                                          <option value="{{ bug.id }}">{{ bug.source_control }} - {{ bug.source_control_id }}</option>
-                                          {% endfor %}
-                                      </select>
+                                      <select class="form-control" style="width:auto;" id="existingBugSelect"></select>
                                       <div id="testExistingBugDecisionBtnContainer" class="mt-3">
                                           <button type="button" class="btn btn-dark addSingleBugModalBtn" style="margin-right: 5px;"id="testAddExistingBugSubmitBtn">Submit</button>
                                           <button type="button" class="btn btn-outline-dark addSingleBugModalBtn" style="margin-left: 5px;" id="testAddExistingBugCancelBtn">Cancel</button>
@@ -208,11 +204,7 @@
                       <div class="row">
                           <div class="col-12" align="center">
                               <p>Add bug to selected tests.</p>
-                              <select class="form-control" style="width:auto;" id="existingBugSelectMultiple">
-                                  {% for bug in bug_list %}
-                                  <option value="{{ bug.id }}">{{ bug.source_control }} - {{ bug.source_control_id }}</option>
-                                  {% endfor %}
-                              </select>
+                              <select class="form-control" style="width:auto;" id="existingBugSelectMultiple"></select>
                           </div>
                       </div>
                   </div>
