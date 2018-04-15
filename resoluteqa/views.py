@@ -9,6 +9,9 @@ def index(request):
     context = {'project_list': project_list}
     return render(request, 'resoluteqa/index.html', context)
 
+def uploadresults(request):
+    return render(request, 'resoluteqa/upload.html')
+
 def summary(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
     suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')

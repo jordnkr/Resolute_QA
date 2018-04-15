@@ -6,6 +6,7 @@ app_name = 'resoluteqa'
 urlpatterns = [
     # ex: /resoluteqa/
     path('', views.index, name='index'),
+    path('uploadresults', views.uploadresults, name='uploadresults'),
     # ex: /resoluteqa/project/2/summary
     path('project/<int:projenv_id>/summary', views.summary, name='summary'),
     # ex: /resoluteqa/suiterun/3/dailyresults

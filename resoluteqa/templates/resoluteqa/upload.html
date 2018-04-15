@@ -20,37 +20,18 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="{% url 'resoluteqa:index' %}">Projects<span class="sr-only">(current)</span></a>
-                  </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'resoluteqa:uploadresults' %}">Upload Results</a>
+                      <a class="nav-link" href="{% url 'resoluteqa:index' %}">Projects</a>
+                  </li>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'resoluteqa:uploadresults' %}">Upload Results<span class="sr-only">(current)</span></a>
                   </li>
               </ul>
           </div>
       </nav>
       <div class="container text-center mt-5">
-          <h1>Projects</h1>
-          <table id="projectsTable" class="table table-striped mt-3">
-              <thead>
-                  <tr>
-                      <th>Project</th>
-                      <th>Environments</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for project in project_list %}
-                      <tr>
-                          <td>{{ project.project_name }}</td>
-                          <td>
-                              {% for projenv in project.projectenvironment_set.all %}
-                                  <a class="underline ml-3" href="{% url 'resoluteqa:summary' projenv.id %}">{{ projenv.environment }}</a>
-                              {% endfor %}
-                          </td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
+          <h1>Upload Results</h1>
+
       </div>
 
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -59,6 +40,6 @@
       <script defer src="{% static 'resoluteqa/js/libraries/bootstrap.min.js' %}"></script><!--4.0.0-beta.3-->
       <script defer src="{% static 'resoluteqa/js/libraries/datatables.min.js' %}"></script>
       <script defer src="{% static 'resoluteqa/js/libraries/Chart.min.js' %}"></script>
-      <script defer src="{% static 'resoluteqa/js/projects.js' %}"></script>
+      <!--<script defer src="{% static 'resoluteqa/js/upload.js' %}"></script>-->
   </body>
 </html>
