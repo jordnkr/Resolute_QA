@@ -1,7 +1,8 @@
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.csrf import csrf_exempt
+import xml.etree.ElementTree as ET
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
 
 def index(request):
@@ -194,3 +195,13 @@ def bug_remove(request, bug_id, test_id):
             return JsonResponse({'error': True})
     except Exception as e:
         return JsonResponse({'error': True})
+
+def xml_upload(request):
+    xmlfile = request.FILES['xmlfile']
+    tree = ET.parse(xmlfile)
+    for note in tree.iter('note'):
+        toText =  note.find('to').text
+        fromText = note.find('from').text
+        print(toText)
+        print(fromText)
+    return redirect('resoluteqa:uploadresults')
