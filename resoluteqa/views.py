@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.csrf import csrf_exempt
 import xml.etree.ElementTree as ET
+from django.utils.dateparse import parse_datetime
+from django.utils.timezone import is_aware, make_aware
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
 
 def index(request):
@@ -196,12 +198,78 @@ def bug_remove(request, bug_id, test_id):
     except Exception as e:
         return JsonResponse({'error': True})
 
-def xml_upload(request):
+def upload_mstest(request, projenv_id):
     xmlfile = request.FILES['xmlfile']
     tree = ET.parse(xmlfile)
-    for note in tree.iter('note'):
-        toText =  note.find('to').text
-        fromText = note.find('from').text
-        print(toText)
-        print(fromText)
+    for test_run in tree.iter('TestRun'):
+        test_settings = test_run.find('TestSettings')
+        result_summary = test_run.find('ResultSummary')
+        test_definitions = test_run.find('TestDefinitions')
+        results = test_run.find('Results')
+
+        # SUITE INFO
+        projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
+        suite_name = test_settings.attrib['name']
+        description = test_settings.find('Description').text
+        suite, created = Suite.objects.get_or_create(
+            project_environment=projectenvironment,
+            suite_name=suite_name,
+            defaults={'description': description}
+        )
+
+        # SUITE_RUN INFO
+        total_tests = int(result_summary.find('Counters').attrib['total'])
+        executed_tests = int(result_summary.find('Counters').attrib['executed']) #doesn't go to the database. used for calculation only
+        passed_tests = int(result_summary.find('Counters').attrib['passed'])
+        failed_tests = int(result_summary.find('Counters').attrib['failed']) + int(result_summary.find('Counters').attrib['error'])
+        inconclusive_tests = int(result_summary.find('Counters').attrib['inconclusive'])
+        ignored_tests = int(result_summary.find('Counters').attrib['notExecuted'])
+        result_precentage = 100 * (passed_tests/executed_tests)
+        suite_start_time = get_aware_datetime(test_run.find('Times').attrib['start'])
+        suite_end_time = get_aware_datetime(test_run.find('Times').attrib['finish'])
+        total_execution_time = (suite_end_time-suite_start_time).total_seconds()/60 # store time in minutes
+        suite_run = SuiteRun.objects.create(suite=suite, total_tests=total_tests, passed_tests=passed_tests, failed_tests=failed_tests, inconclusive_tests=inconclusive_tests, ignored_tests=ignored_tests, result_precentage=result_precentage, start_time=suite_start_time, end_time=suite_end_time, total_execution_time=total_execution_time)
+
+        for test_result in results.iter('UnitTestResult'):
+            # TEST INFO
+            test_id = test_result.attrib['testId'] # not stored in database. Used to query other fields within the results file only.
+            test_name = test_result.attrib['testName']
+            test_category = '' #left blank for now
+            unit_test = test_definitions.findall(".//UnitTest[@id='" + test_id + "']") # not stored in database. Used for other values only.
+            class_name_path = unit_test[0].find('TestMethod').attrib['className'].split(',')[0] # not stored in database. Used for other values only.
+            pathArray = class_name_path.rsplit('.', 1) # not stored in database. Used for other values only.
+            class_name = pathArray[1]
+            namespace = pathArray[0]
+            test, created = Test.objects.get_or_create(
+                suite=suite,
+                test_name=test_name,
+                class_name=class_name,
+                namespace=namespace
+            )
+
+            # TEST_RESULT INFO
+            result = test_result.attrib['outcome']
+            host = test_result.attrib['computerName']
+            test_start_time = get_aware_datetime(test_result.attrib['startTime'])
+            test_end_time = get_aware_datetime(test_result.attrib['endTime'])
+            test_total_execution_time = parse_seconds(test_result.attrib['duration']) # store time in seconds
+            console_output = test_result.find('Output').find('StdOut').text
+            tr = TestResult.objects.create(suite_run=suite_run, test=test, result=result, host=host, start_time=test_start_time, end_time=test_end_time, total_execution_time=test_total_execution_time, console_output=console_output)
+
+            # ERROR INFO
+            for error in test_result.find('Output').iter('ErrorInfo'):
+                error_message = error.find('Message').text
+                stack_trace = error.find('StackTrace').text
+                Error.objects.create(test_result=tr, error_message=error_message, stack_trace=stack_trace)
+
     return redirect('resoluteqa:uploadresults')
+
+def get_aware_datetime(date_str):
+    ret = parse_datetime(date_str)
+    if not is_aware(ret):
+        ret = make_aware(ret)
+    return ret
+
+def parse_seconds(time_str):
+    h, m, s = time_str.split(':')
+    return float(h) * 3600 + float(m) * 60 + float(s)

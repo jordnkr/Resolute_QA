@@ -32,7 +32,7 @@
       <div class="container text-center mt-5">
           <h1>Upload Results</h1>
           <div class="mt-4">
-              <form action="{% url 'resoluteqa:xml_upload' %}" enctype="multipart/form-data" method="post">
+              <form action="{% url 'resoluteqa:upload_mstest' 1 %}" enctype="multipart/form-data" method="post">
                   {% csrf_token %}
                   <input type="file" name="xmlfile">
                   <input type="submit" value="Upload">

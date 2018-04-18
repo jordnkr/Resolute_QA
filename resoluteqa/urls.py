@@ -21,5 +21,5 @@ urlpatterns = [
     path('bug/<int:bug_id>/delete', views.bug_delete, name='bug_delete'),
     path('bug/add', views.bug_add, name='bug_add'),
     path('bug/<int:bug_id>/remove/<int:test_id>', views.bug_remove, name='bug_remove'),
-    path('xml_upload', views.xml_upload, name='xml_upload')
+    path('upload_mstest/<int:projenv_id>', views.upload_mstest, name='upload_mstest')
 ]
