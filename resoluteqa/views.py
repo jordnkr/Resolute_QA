@@ -12,8 +12,21 @@ def index(request):
     context = {'project_list': project_list}
     return render(request, 'resoluteqa/index.html', context)
 
-def uploadresults(request):
-    return render(request, 'resoluteqa/upload.html')
+def uploadresults(request, projenv_id):
+    projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
+    suite_list = Suite.objects.filter(project_environment_id=projenv_id).order_by('suite_name')
+
+    # Used for navbar daily results links
+    suite_runs = []
+    for suite in suite_list:
+        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+
+    context = {
+        'projectenvironment': projectenvironment,
+        'suite_runs': suite_runs
+    }
+
+    return render(request, 'resoluteqa/upload.html', context)
 
 def summary(request, projenv_id):
     projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)

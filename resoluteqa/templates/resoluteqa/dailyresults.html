@@ -40,6 +40,11 @@
                       <a id="bugsNavLink" class="nav-link" href="{% url 'resoluteqa:bugs' suite.project_environment.id %}" data-projenvid="{{ suite.project_environment.id }}">Bugs</a>
                   </li>
               </ul>
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'resoluteqa:uploadresults' suite.project_environment.id %}">Upload</a>
+                  </li>
+              </ul>
           </div>
       </nav>
       <div class="container-fluid mt-5">

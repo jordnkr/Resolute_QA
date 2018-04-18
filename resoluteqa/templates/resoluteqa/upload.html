@@ -23,8 +23,26 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'resoluteqa:index' %}">Projects</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'resoluteqa:summary' projectenvironment.id %}">Summary</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Daily Results
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
+                          {% for suite in suite_runs %}
+                              <a class="dropdown-item" href="{% url 'resoluteqa:dailyresults' suite.id %}">{{ suite.suite.suite_name }}</a>
+                          {% endfor %}
+                      </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'resoluteqa:bugs' projectenvironment.id %}">Bugs</a>
+                  </li>
+              </ul>
+              <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                      <a class="nav-link" href="{% url 'resoluteqa:uploadresults' %}">Upload Results<span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 'resoluteqa:uploadresults' projectenvironment.id %}">Upload<span class="sr-only">(current)</span></a>
                   </li>
               </ul>
           </div>
@@ -32,7 +50,7 @@
       <div class="container text-center mt-5">
           <h1>Upload Results</h1>
           <div class="mt-4">
-              <form action="{% url 'resoluteqa:upload_mstest' 1 %}" enctype="multipart/form-data" method="post">
+              <form action="{% url 'resoluteqa:upload_mstest' projectenvironment.id %}" enctype="multipart/form-data" method="post">
                   {% csrf_token %}
                   <input type="file" name="xmlfile">
                   <input type="submit" value="Upload">
@@ -46,6 +64,5 @@
       <script defer src="{% static 'resoluteqa/js/libraries/bootstrap.min.js' %}"></script><!--4.0.0-beta.3-->
       <script defer src="{% static 'resoluteqa/js/libraries/datatables.min.js' %}"></script>
       <script defer src="{% static 'resoluteqa/js/libraries/Chart.min.js' %}"></script>
-      <!--<script defer src="{% static 'resoluteqa/js/upload.js' %}"></script>-->
   </body>
 </html>

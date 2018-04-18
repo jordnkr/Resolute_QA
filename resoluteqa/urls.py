@@ -13,6 +13,7 @@ urlpatterns = [
     path('suiterun/<int:suite_run_id>/dailyresults', views.dailyresults, name='dailyresults'),
     # ex: /resoluteqa/suite/3/bugs
     path('project/<int:projenv_id>/bugs', views.bugs, name='bugs'),
+    path('project/<int:projenv_id>/upload', views.uploadresults, name='uploadresults'),
     path('test/<int:test_id>/bugs', views.testbugs, name='testbugs'),
     path('project/<int:projenv_id>/allbugs', views.projectbugs, name='projectbugs'),
     path('individualresult/<int:test_result_id>', views.individualresult, name='individualresult'),
