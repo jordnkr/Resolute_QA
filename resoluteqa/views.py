@@ -37,18 +37,26 @@ def summary(request, projenv_id):
     inconclusive_tests = 0
     ignored_tests = 0
     total_tests = 0
+    pass_percentage = 0
+    fail_percentage = 0
 
     suite_runs = []
     for suite in suite_list:
-        run = SuiteRun.objects.filter(suite_id=suite.id).latest('start_time')
-        passed_tests += run.passed_tests
-        failed_tests += run.failed_tests
-        inconclusive_tests += run.inconclusive_tests
-        ignored_tests += run.ignored_tests
-        total_tests += run.total_tests
-        suite_runs.append(run)
+        try:
+            run = SuiteRun.objects.filter(suite_id=suite.id).latest('start_time')
+            passed_tests += run.passed_tests
+            failed_tests += run.failed_tests
+            inconclusive_tests += run.inconclusive_tests
+            ignored_tests += run.ignored_tests
+            total_tests += run.total_tests
+            suite_runs.append(run)
+        except Exception:
+            pass # Do nothing, suite_runs will stay empty and page will load correctly
 
-    pass_percentage = round(100 - (100 * (failed_tests / float(passed_tests))), 2)
+
+    if total_tests > 0:
+        pass_percentage = round(100 * (float(passed_tests) / total_tests), 2)
+        fail_percentage = round(100 - pass_percentage, 2)
 
     context = {
         'projectenvironment': projectenvironment,
@@ -60,7 +68,7 @@ def summary(request, projenv_id):
         'ignored_tests': ignored_tests,
         'total_tests': total_tests,
         'pass_percentage': pass_percentage,
-        'fail_percentage': round(100 - pass_percentage, 2)
+        'fail_percentage': fail_percentage
     }
     return render(request, 'resoluteqa/summary.html', context)
 
@@ -97,7 +105,10 @@ def bugs(request, projenv_id):
     # Used for navbar daily results links
     suite_runs = []
     for suite in suite_list:
-        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+        try:
+            suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+        except Exception:
+            pass # Do nothing. suite_runs will remain blank and page will load without data
 
     context = {
         'projectenvironment': projectenvironment,
@@ -275,7 +286,7 @@ def upload_mstest(request, projenv_id):
                 stack_trace = error.find('StackTrace').text
                 Error.objects.create(test_result=tr, error_message=error_message, stack_trace=stack_trace)
 
-    return redirect('resoluteqa:uploadresults')
+    return redirect('resoluteqa:uploadresults', projenv_id)
 
 def get_aware_datetime(date_str):
     ret = parse_datetime(date_str)
