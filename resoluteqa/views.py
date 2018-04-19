@@ -19,7 +19,10 @@ def uploadresults(request, projenv_id):
     # Used for navbar daily results links
     suite_runs = []
     for suite in suite_list:
-        suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+        try:
+            suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
+        except Exception:
+            pass # Do nothing, suite_runs will stay empty and page will load correctly
 
     context = {
         'projectenvironment': projectenvironment,
@@ -222,6 +225,7 @@ def bug_remove(request, bug_id, test_id):
     except Exception as e:
         return JsonResponse({'error': True})
 
+@csrf_exempt
 def upload_mstest(request, projenv_id):
     xmlfile = request.FILES['xmlfile']
     tree = ET.parse(xmlfile)
