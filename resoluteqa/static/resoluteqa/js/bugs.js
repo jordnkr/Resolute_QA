@@ -1,6 +1,7 @@
 jQuery(document).ready(function($) {
     $('#bugsTable').DataTable( {
-        paging: false
+        paging: false,
+        "autoWidth": false
     });
 
     $('#submitEditBtn').on('click', function() {

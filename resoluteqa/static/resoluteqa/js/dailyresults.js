@@ -1,10 +1,16 @@
 jQuery(document).ready(function($) {
     $('#resultsTable').DataTable( {
         paging: false,
+        "autoWidth": false,
         columnDefs: [
             {
                 "targets": 0,
                 "width": "1%",
+                "orderable": false
+            },
+            {
+                "targets": 1,
+                "width": "25%",
                 "orderable": false
             }
         ],
