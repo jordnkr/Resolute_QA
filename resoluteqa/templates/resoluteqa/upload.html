@@ -52,7 +52,7 @@
           <div class="mt-4">
               <form action="{% url 'resoluteqa:upload_mstest' projectenvironment.id %}" enctype="multipart/form-data" method="post">
                   {% csrf_token %}
-                  <input type="file" name="xmlfile">
+                  <input type="file" name="resultfile">
                   <input type="submit" value="Upload">
               </form>
           </div>

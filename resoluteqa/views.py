@@ -227,7 +227,7 @@ def bug_remove(request, bug_id, test_id):
 
 @csrf_exempt
 def upload_mstest(request, projenv_id):
-    xmlfile = request.FILES['xmlfile']
+    xmlfile = request.FILES['resultfile']
     tree = ET.parse(xmlfile)
     for test_run in tree.iter('TestRun'):
         test_settings = test_run.find('TestSettings')
