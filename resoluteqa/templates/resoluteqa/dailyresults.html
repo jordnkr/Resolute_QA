@@ -88,7 +88,7 @@
                           {% for result in test_results %}
                               <tr>
                                   <td class="text-center">
-                                      <img id="bugIconTest{{ result.test.id }}" class="{% if not result.test.bugs.all %}hidden{% endif %}" src="{% static 'resoluteqa/image/icons/bug.png' %}" />
+                                      <img id="bugIconTest{{ result.test.id }}" class="cursor {% if not result.test.bugs.all %}hidden{% endif %}" src="{% static 'resoluteqa/image/icons/bug.png' %}" data-toggle="modal" data-target="#testModal" data-testid="{{ result.test.id }}" data-testname="{{ result.test.test_name }}" data-testclass="{{ result.test.class_name }}" data-namespace="{{ result.test.namespace }}" />
                                   </td>
                                   <td>
                                       <input type="checkbox" class="testCheckbox hidden" data-testid="{{ result.test.id }}">

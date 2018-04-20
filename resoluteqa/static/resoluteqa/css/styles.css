@@ -33,7 +33,7 @@
     color: inherit;
 }
 
-button {
+button, .cursor {
     cursor: pointer;
 }
 
