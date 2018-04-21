@@ -229,6 +229,10 @@ def bug_remove(request, bug_id, test_id):
 def upload_mstest(request, projenv_id):
     xmlfile = request.FILES.get('resultfile')
     if xmlfile is not None:
+        upload_project_name = request.POST.get('project')
+        upload_environment = request.POST.get('environment')
+        upload_suite_name = request.POST.get('suite_name')
+
         tree = ET.parse(xmlfile)
         for test_run in tree.iter('TestRun'):
             test_settings = test_run.find('TestSettings')
@@ -237,12 +241,16 @@ def upload_mstest(request, projenv_id):
             results = test_run.find('Results')
 
             # SUITE INFO
-            projectenvironment = get_object_or_404(ProjectEnvironment, pk=projenv_id)
-            suite_name = test_settings.attrib['name']
+            project, project_created = Project.objects.get_or_create(project_name=upload_project_name)
+            environment, environment_created = Environment.objects.get_or_create(environment_name=upload_environment)
+            projectenvironment, projenv_create = ProjectEnvironment.objects.get_or_create(
+                project=project,
+                environment=environment
+            )
             description = test_settings.find('Description').text
-            suite, created = Suite.objects.get_or_create(
+            suite, suite_created = Suite.objects.get_or_create(
                 project_environment=projectenvironment,
-                suite_name=suite_name,
+                suite_name=upload_suite_name,
                 defaults={'description': description}
             )
 
@@ -269,7 +277,7 @@ def upload_mstest(request, projenv_id):
                 pathArray = class_name_path.rsplit('.', 1) # not stored in database. Used for other values only.
                 class_name = pathArray[1]
                 namespace = pathArray[0]
-                test, created = Test.objects.get_or_create(
+                test, test_created = Test.objects.get_or_create(
                     suite=suite,
                     test_name=test_name,
                     class_name=class_name,
@@ -291,7 +299,11 @@ def upload_mstest(request, projenv_id):
                     stack_trace = error.find('StackTrace').text
                     Error.objects.create(test_result=tr, error_message=error_message, stack_trace=stack_trace)
 
-    return redirect('resoluteqa:uploadresults', projenv_id)
+    fromForm = False #make form upload this value
+    if fromForm:
+        return redirect('resoluteqa:uploadresults', projenv_id)
+    else:
+        return JsonResponse({'success': True})
 
 def get_aware_datetime(date_str):
     ret = parse_datetime(date_str)
