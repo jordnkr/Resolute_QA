@@ -41,12 +41,12 @@
                   </tr>
               </thead>
               <tbody>
-                  {% for project in project_list %}
+                  {% for item in project_list %}
                       <tr>
-                          <td>{{ project.project_name }}</td>
+                          <td>{{ item.project.project_name }}</td>
                           <td>
-                              {% for projenv in project.projectenvironment_set.all %}
-                                  <a class="underline ml-3" href="{% url 'resoluteqa:summary' projenv.id %}">{{ projenv.environment }}</a>
+                              {% for env in item.environments %}
+                                  <a class="underline ml-3" href="{% url 'resoluteqa:summary' env.id %}">{{ env.environment.environment_name }}</a>
                               {% endfor %}
                           </td>
                       </tr>

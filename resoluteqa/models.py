@@ -9,6 +9,9 @@ class Environment(models.Model):
     def __str__(self):
         return self.environment_name
 
+    class Meta:
+        ordering = ('environment_name',)
+
 class Project(models.Model):
     environments = models.ManyToManyField(Environment, through='ProjectEnvironment')
     project_name = models.CharField(max_length=50)

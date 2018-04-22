@@ -8,7 +8,11 @@ from django.utils.timezone import is_aware, make_aware
 from .models import Environment, Project, Suite, ProjectEnvironment, SuiteRun, Bug, TestResult, Error, Test
 
 def index(request):
-    project_list = Project.objects.all()
+    projects = Project.objects.all()
+    project_list = []
+    for project in projects:
+        project_list.append({'project':project, 'environments':project.projectenvironment_set.all().order_by('environment')})
+
     context = {'project_list': project_list}
     return render(request, 'resoluteqa/index.html', context)
 
