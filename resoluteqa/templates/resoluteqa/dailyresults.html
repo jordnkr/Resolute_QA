@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-      <title>Daily Results - Resolute QA</title>
+      <title>Run Results - Resolute QA</title>
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,7 +28,7 @@
                   </li>
                   <li class="nav-item dropdown active">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Daily Results <span class="sr-only">(current)</span>
+                          Run Results <span class="sr-only">(current)</span>
                       </a>
                       <div class="dropdown-menu" aria-labelledby="dailyResultsDropdown">
                           {% for suite in suite_runs %}
@@ -49,7 +49,7 @@
       </nav>
       <div class="container-fluid mt-5">
           <div class="row justify-content-center">
-              <h1 class="text-center">Daily Results for {{ suite.suite_name }}</h1>
+              <h1 class="text-center">Run Results for {{ suite.suite_name }}</h1>
           </div>
           <div class="row justify-content-center mt-3 mb-1">
               <div class="col-md-10">
