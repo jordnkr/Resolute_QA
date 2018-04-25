@@ -36,4 +36,6 @@ jQuery(document).ready(function($) {
             $(this).addClass('red');
         }
     });
+
+    $('#suiteSummaryTable').removeClass('hidden');
 });

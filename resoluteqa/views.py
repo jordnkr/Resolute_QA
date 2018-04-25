@@ -87,6 +87,7 @@ def dailyresults(request, suite_run_id):
     historical_suite_runs = SuiteRun.objects.filter(suite__id=request_suite.id).order_by('-insert_date')
     test_results = TestResult.objects.filter(suite_run__id=suite_run_id)
     bug_list = Bug.objects.filter(test__suite__project_environment_id=request_suite.project_environment.id).distinct()
+    projectenvironment = ProjectEnvironment.objects.get(pk=request_suite.project_environment.id)
 
     # Used for navbar daily results links
     suite_runs = []
@@ -94,6 +95,7 @@ def dailyresults(request, suite_run_id):
         suite_runs.append(SuiteRun.objects.filter(suite_id=suite.id).latest('start_time'))
 
     context = {
+        'projectenvironment': projectenvironment,
         'request_suite_run': request_suite_run,
         'suite': request_suite,
         'suite_list': suite_list,
@@ -230,7 +232,7 @@ def bug_remove(request, bug_id, test_id):
         return JsonResponse({'error': True})
 
 @csrf_exempt
-def upload_mstest(request, projenv_id):
+def upload_mstest(request):
     xmlfile = request.FILES.get('resultfile')
     if xmlfile is not None:
         upload_project_name = request.POST.get('project')
@@ -294,14 +296,21 @@ def upload_mstest(request, projenv_id):
                 test_start_time = get_aware_datetime(test_result.attrib['startTime'])
                 test_end_time = get_aware_datetime(test_result.attrib['endTime'])
                 test_total_execution_time = parse_seconds(test_result.attrib['duration']) # store time in seconds
-                console_output = test_result.find('Output').find('StdOut').text
+                console_output = 'N/A'
+                try:
+                    console_output = test_result.find('Output').find('StdOut').text
+                except Exception:
+                    pass
                 tr = TestResult.objects.create(suite_run=suite_run, test=test, result=result, host=host, start_time=test_start_time, end_time=test_end_time, total_execution_time=test_total_execution_time, console_output=console_output)
 
                 # ERROR INFO
-                for error in test_result.find('Output').iter('ErrorInfo'):
-                    error_message = error.find('Message').text
-                    stack_trace = error.find('StackTrace').text
-                    Error.objects.create(test_result=tr, error_message=error_message, stack_trace=stack_trace)
+                try:
+                    for error in test_result.find('Output').iter('ErrorInfo'):
+                        error_message = error.find('Message').text
+                        stack_trace = error.find('StackTrace').text
+                        Error.objects.create(test_result=tr, error_message=error_message, stack_trace=stack_trace)
+                except Exception:
+                    pass
 
     fromForm = False #make form upload this value
     if fromForm:

@@ -47,7 +47,11 @@
               </ul>
           </div>
       </nav>
-      <div class="container-fluid mt-5">
+      <div class="container-fluid text-right" style="margin-top:5px;">
+          <span><b>Project:</b> {{ projectenvironment.project }}</span>
+          <span style="margin-left:25px;margin-right:10px;"><b>Environment:</b> {{ projectenvironment.environment }}</span>
+      </div>
+      <div class="container-fluid mt-4">
           <div class="row justify-content-center">
               <h1 class="text-center">Run Results for {{ suite.suite_name }}</h1>
           </div>
@@ -74,7 +78,7 @@
           </div>
           <div class="row justify-content-center">
               <div class="col-md-10">
-                  <table id="resultsTable" class="table no-border grayBorder text-center">
+                  <table id="resultsTable" class="table no-border grayBorder text-center hidden">
                       <thead>
                           <tr>
                               <th>Bug</th>

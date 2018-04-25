@@ -4,6 +4,8 @@ jQuery(document).ready(function($) {
         "autoWidth": false
     });
 
+    $('#bugsTable').removeClass('hidden');
+
     $('#submitEditBtn').on('click', function() {
         var jsonData = {
             'source_control_id': $('#editBugSourceControlIdInput').val(),

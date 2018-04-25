@@ -47,10 +47,14 @@
               </ul>
           </div>
       </nav>
-      <div class="container text-center mt-5">
+      <div class="container-fluid text-right" style="margin-top:5px;">
+          <span><b>Project:</b> {{ projectenvironment.project }}</span>
+          <span style="margin-left:25px;margin-right:10px;"><b>Environment:</b> {{ projectenvironment.environment }}</span>
+      </div>
+      <div class="container text-center mt-4">
           <h1>Upload Results</h1>
           <div class="mt-4">
-              <form action="{% url 'resoluteqa:upload_mstest' projectenvironment.id %}" enctype="multipart/form-data" method="post">
+              <form action="{% url 'resoluteqa:upload_mstest' %}" enctype="multipart/form-data" method="post">
                   {% csrf_token %}
                   <input type="file" name="resultfile">
                   <input type="submit" value="Upload">

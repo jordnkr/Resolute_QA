@@ -17,6 +17,8 @@ jQuery(document).ready(function($) {
         "order": [[ 1, "asc" ]]
     });
 
+    $('#resultsTable').removeClass('hidden');
+
     $('#suiteRunsSelect').change(function() {
         window.location.href = '../' + $(this).val() + '/dailyresults';
     });

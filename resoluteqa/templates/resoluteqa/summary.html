@@ -47,9 +47,13 @@
               </ul>
           </div>
       </nav>
+      <div class="container-fluid text-right" style="margin-top:5px;">
+          <span><b>Project:</b> {{ projectenvironment.project }}</span>
+          <span style="margin-left:25px;margin-right:10px;"><b>Environment:</b> {{ projectenvironment.environment }}</span>
+      </div>
       <div class="container">
-          <div class="row justify-content-center">
-              <h1 class="mt-5 mb-5 text-center">{{ projectenvironment.project }} Results</h1>
+          <div class="row justify-content-center mt-4 mb-5">
+              <h1 class="text-center">Summary Results</h1>
           </div>
           <div class="row justify-content-md-center ">
               <div class="col-lg-6 text-center">
@@ -88,7 +92,7 @@
           </div>
           <div class="row justify-content-center">
               <div class="col-lg-10">
-                  <table id="suiteSummaryTable" class="table no-border">
+                  <table id="suiteSummaryTable" class="table no-border hidden">
                       <thead>
                           <tr>
                               <th>Suite Name</th>
