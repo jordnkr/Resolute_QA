@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
     $('#resultsTable').removeClass('hidden');
 
     $('#suiteRunsSelect').change(function() {
-        window.location.href = '../' + $(this).val() + '/dailyresults';
+        window.location.href = '../' + $(this).val() + '/runresults';
     });
 
     $('.green').on('click', function() {

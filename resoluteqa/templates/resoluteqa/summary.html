@@ -44,6 +44,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'resoluteqa:uploadresults' projectenvironment.id %}">Upload</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                  </li>
               </ul>
           </div>
       </nav>
@@ -90,7 +93,7 @@
           <div class="row justify-content-center">
               <h3>Suite Result Summaries</h3>
           </div>
-          <div class="row justify-content-center">
+          <div class="row justify-content-center paddingBottom">
               <div class="col-lg-10">
                   <table id="suiteSummaryTable" class="table no-border hidden">
                       <thead>
@@ -108,7 +111,7 @@
                       <tbody>
                           {% for run in suite_runs %}
                               <tr class="summaryRow" data-percentage="{{ run.result_precentage }}">
-                                  <td>
+                                  <td class="text-left">
                                       <a href="{% url 'resoluteqa:dailyresults' run.id %}" class="link">{{ run.suite.suite_name }}</a>
                                   </td>
                                   <td>{{ run.start_time|date:"m-d-Y" }}</td>

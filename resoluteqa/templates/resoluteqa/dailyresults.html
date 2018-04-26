@@ -44,6 +44,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'resoluteqa:uploadresults' suite.project_environment.id %}">Upload</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                  </li>
               </ul>
           </div>
       </nav>
@@ -76,7 +79,7 @@
                   </div>
               </div>
           </div>
-          <div class="row justify-content-center">
+          <div class="row justify-content-center paddingBottom">
               <div class="col-md-10">
                   <table id="resultsTable" class="table no-border grayBorder text-center hidden">
                       <thead>
@@ -100,7 +103,7 @@
                                   </td>
                                   <td>{{ result.test.class_name }}</td>
                                   <td>{{ result.total_execution_time }}  </td>
-                                  <td class="{% if result.result == 'Passed' %}green{% elif result.result == 'Failed' %}red{% endif %} link" data-toggle="modal" data-target="#resultModal" data-id="{{ result.id }}" data-testname="{{ result.test.test_name }}" data-result="{{ result.result }}" data-machine="{{ result.host }}" data-execution="{{ result.total_execution_time }}">{{ result.result }}</td>
+                                  <td class="{% if result.result == 'Passed' %}green{% elif result.result == 'Failed' %}red{% elif result.result == 'Inconclusive' %}yellow{% endif %} link" data-toggle="modal" data-target="#resultModal" data-id="{{ result.id }}" data-testname="{{ result.test.test_name }}" data-result="{{ result.result }}" data-machine="{{ result.host }}" data-execution="{{ result.total_execution_time }}">{{ result.result }}</td>
                               </tr>
                           {% endfor %}
                       </tbody>
