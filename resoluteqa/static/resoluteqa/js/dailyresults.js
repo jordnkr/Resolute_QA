@@ -17,6 +17,8 @@ jQuery(document).ready(function($) {
         "order": [[ 1, "asc" ]]
     });
 
+    // Hide loading message and show table after it's loaded
+    $('#loadingMessage').hide();
     $('#resultsTable').removeClass('hidden');
 
     $('#suiteRunsSelect').change(function() {
